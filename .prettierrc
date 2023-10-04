@@ -1,0 +1,8 @@
+{
+    "semi": true,
+    "semicolons": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "endOfLine": "auto"
+  }
+  
