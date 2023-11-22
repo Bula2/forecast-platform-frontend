@@ -8,15 +8,21 @@ const { Title } = Typography;
 
 const Login = () => {
   const navigate = useNavigate();
-  const onFinish = async (values: any) => {};
+  const onFinish = (values: any) => {
+    console.log(values);
+    navigate('/');
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
       <Form layout="vertical" className="w-400 p-10" onFinish={onFinish}>
         <Title level={2}>Авторизация</Title>
         <hr />
-        <Form.Item label="Email" name="email">
+        {/* <Form.Item label="Email" name="email">
           <input type="email" />
+        </Form.Item> */}
+        <Form.Item label="Логин" name="username">
+          <input type="text" />
         </Form.Item>
         <Form.Item label="Пароль" name="password">
           <input type="password" />

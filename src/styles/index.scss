@@ -1,10 +1,10 @@
 // imports
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 //vars
 
-$main-color: #2aa9bf;
-$second-color: #3597c8;
+$main-color: #002140;
+$second-color: #02315d;
 
 //body styles
 body,
@@ -16,11 +16,10 @@ html {
 }
 
 * {
-  font-family: "Lato", sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 // flex classes
-
 .flex {
   display: flex;
 }
@@ -38,7 +37,6 @@ html {
 }
 
 // heights and width
-
 .h-screen {
   height: 100vh;
 }
@@ -87,7 +85,6 @@ html {
 }
 
 // form-elements
-
 label {
   font-size: 16px !important;
 }
@@ -114,7 +111,6 @@ input {
 }
 
 // buttons
-
 .contained-btn {
   height: 35px !important;
   background-color: $main-color !important;

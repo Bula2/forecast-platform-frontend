@@ -1,20 +1,31 @@
-import React from "react";
+import React from 'react';
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
-import Registration from "./pages/Registration";
-import Home from "./pages/Home";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import Registration from './pages/Registration';
+import Home from './pages/Home';
+import { MyLayout } from './components/MyLayout';
+import { PrivateRoute } from './utils/components/PrivateRoute';
 
 function App() {
   return (
     <div>
-      <BrowserRouter>
+      <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/registration" element={<Registration />} />
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <MyLayout>
+                  <Home />
+                </MyLayout>
+              </PrivateRoute>
+            }
+          />
         </Routes>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }
