@@ -1,10 +1,9 @@
 // imports
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-//vars
-
-$main-color: #002140;
-$second-color: #02315d;
+@import './html-elements.scss';
+@import './vars.scss';
+@import './common.scss';
+@import './login-or-registration.scss';
 
 //body styles
 body,
@@ -18,107 +17,3 @@ html {
 * {
   font-family: 'Poppins', sans-serif !important;
 }
-
-// flex classes
-.flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.items-center {
-  align-items: center;
-}
-
-// heights and width
-.h-screen {
-  height: 100vh;
-}
-
-.w-400 {
-  width: 400px;
-}
-
-.m-10 {
-  margin: 10px;
-}
-
-.m-20 {
-  margin: 20x;
-}
-
-.m-30 {
-  margin: 30px;
-}
-
-.my-10 {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.my-20 {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-.my-30 {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-
-.p-10 {
-  padding: 10px;
-}
-
-.p-20 {
-  padding: 20x;
-}
-
-.p-30 {
-  padding: 30px;
-}
-
-// form-elements
-label {
-  font-size: 16px !important;
-}
-
-input {
-  height: 35px !important;
-  padding-left: 10px;
-  border-radius: 5px;
-  border: 1px solid rgb(187, 182, 182);
-  width: calc(100% - 10px);
-  font-size: 16px !important;
-
-  &:focus {
-    outline: 0 !important;
-    border: 1px solid rgb(87, 85, 85);
-  }
-}
-
-.registration-link {
-  display: block;
-  font-size: 16px;
-  margin-top: 10px;
-  color: $second-color !important;
-}
-
-// buttons
-.contained-btn {
-  height: 35px !important;
-  background-color: $main-color !important;
-  text-transform: uppercase;
-
-  &:hover {
-    background-color: $second-color !important;
-  }
-}
-
-// antd overriding
