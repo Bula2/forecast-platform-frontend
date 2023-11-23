@@ -1,0 +1,12 @@
+.layout {
+    min-height: '100vh';
+
+    &__header {
+        padding: 0;
+        background-color: $white-color;
+    }
+
+    &__footer {
+        text-align: 'center';
+    }
+}

@@ -62,14 +62,3 @@
 .p-30 {
     padding: 30px;
 }
-
-// buttons
-.contained-btn {
-    height: 35px !important;
-    background-color: $main-color !important;
-    text-transform: uppercase;
-
-    &:hover {
-        background-color: $second-color !important;
-    }
-}

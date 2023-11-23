@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Registration from './pages/Registration';
-import Home from './pages/Home';
+import { Login, Registration, Home } from './pages';
 import { MyLayout } from './components/MyLayout';
 import { PrivateRoute } from './utils/components/PrivateRoute';
 

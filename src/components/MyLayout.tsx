@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { GreyContent } from './GreyContent';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -31,12 +32,10 @@ interface IMyLayout {
 }
 
 export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
+  const location = useLocation(); //location.pathname
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
   const items: MenuItem[] = [
     getItem({
       label: 'Главная',
@@ -71,18 +70,11 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
         onCollapse={(value) => setCollapsed(value)}
         width={300}
       >
-        <div
-          style={{
-            height: '50px',
-            backgroundColor: '#334454',
-            margin: '10px',
-            borderRadius: '5px',
-          }}
-        />
+        <GreyContent />
         <Menu theme="dark" mode="inline" items={items} />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header className="layout__header" />
         {children}
         <Footer style={{ textAlign: 'center' }}>
           Prophet ©2023 Created by BulaDev

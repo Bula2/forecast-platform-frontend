@@ -1,18 +1,11 @@
-// form-elements
-label {
-    font-size: 16px !important;
+//body styles
+body,
+html {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
-input {
-    height: 35px !important;
-    padding-left: 10px;
-    border-radius: 5px;
-    border: 1px solid rgb(187, 182, 182);
-    width: calc(100% - 10px);
-    font-size: 16px !important;
-
-    &:focus {
-        outline: 0 !important;
-        border: 1px solid rgb(87, 85, 85);
-    }
+* {
+    font-family: 'Open Sans', sans-serif !important;
 }

@@ -1,19 +1,7 @@
 // imports
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import './html-elements.scss';
 @import './vars.scss';
 @import './common.scss';
 @import './login-or-registration.scss';
-
-//body styles
-body,
-html {
-  background-color: rgb(221, 221, 221);
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-* {
-  font-family: 'Poppins', sans-serif !important;
-}
+@import './layout.scss';
