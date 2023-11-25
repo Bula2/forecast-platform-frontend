@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { HomeOutlined, UserOutlined } from '@ant-design/icons';
+import React, { useContext, useState } from 'react';
+import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GreyContent } from './GreyContent';
+import { AuthContext } from '../context/AuthContext';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -33,6 +34,7 @@ interface IMyLayout {
 
 export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
   const location = useLocation(); //location.pathname
+  const { logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -44,21 +46,27 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
       onClick: () => navigate('/'),
     }),
     getItem({
-      label: 'Авторизация',
+      label: 'Меню',
       key: 'sub1',
       icon: <UserOutlined />,
       children: [
         getItem({
-          label: 'Войти',
+          label: 'Личный кабинет',
           key: '1',
-          onClick: () => navigate('/login'),
+          onClick: () => navigate('/'),
         }),
         getItem({
-          label: 'Зарегистрироваться',
+          label: 'Мои визуализации',
           key: '2',
-          onClick: () => navigate('/registration'),
+          onClick: () => navigate('/'),
         }),
       ],
+    }),
+    getItem({
+      label: 'Выйти',
+      key: '3',
+      icon: <LogoutOutlined />,
+      onClick: () => logoutUser(),
     }),
   ];
 

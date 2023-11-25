@@ -17,11 +17,7 @@ export const Login = () => {
   const onFinish = async (values: IAuthUser) => {
     setIsError(false);
     const answer = await loginUser(values);
-    if (answer === 'success') {
-      navigate('/');
-    } else {
-      setIsError(true);
-    }
+    if (answer === 'error') setIsError(true);
   };
 
   return (

@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import './styles/index.scss';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import { AuthProvider } from './context/AuthContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
