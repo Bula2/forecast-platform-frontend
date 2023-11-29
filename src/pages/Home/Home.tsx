@@ -1,14 +1,37 @@
-import { Layout } from 'antd';
-import { useContext } from 'react';
+import { Divider, Layout, List, Typography } from 'antd';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 const { Content } = Layout;
 
 export const Home = () => {
-  const { user } = useContext(AuthContext);
+  const [notes, setNotes] = useState<any[]>([]);
+  const { user, getNotes } = useContext(AuthContext);
+  useEffect(() => {
+    getCurrentNotes();
+  }, []);
+
+  const getCurrentNotes = async () => {
+    const currentNotes = await getNotes();
+    setNotes(currentNotes);
+  };
   return (
     <Content style={{ margin: '16px' }}>
-      {user && `Welcome, ${user.username}`}
+      <Typography.Title level={4}>
+        {user && `Добро пожаловать, ${user.username}!`}
+      </Typography.Title>
+      <Divider orientation="left">Ваши посты</Divider>
+      <List
+        bordered
+        dataSource={notes}
+        renderItem={(item, index) => (
+          <List.Item>
+            <Typography.Text>
+              {index + 1 + ') '} {item.body}
+            </Typography.Text>
+          </List.Item>
+        )}
+      />
     </Content>
   );
 };

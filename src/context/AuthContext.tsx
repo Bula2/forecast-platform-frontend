@@ -9,6 +9,7 @@ interface IAuthContext {
   loginUser: (value: IAuthUser) => Promise<string>;
   user: any;
   logoutUser: () => void;
+  getNotes: () => Promise<any[]>;
 }
 
 export const AuthContext = createContext({} as IAuthContext);
@@ -53,7 +54,6 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const updateUserTokens = async () => {
-    console.log('TOkens is updates');
     try {
       const responce = await axios.post(
         'http://127.0.0.1:8000/api/token/refresh/',
@@ -68,11 +68,30 @@ export const AuthProvider = ({ children }: any) => {
       logoutUser();
       console.log(e);
     }
+    if (loading) {
+      setLoading(false);
+    }
   };
 
-  const contextData = { loginUser, user, logoutUser };
+  const getNotes = async () => {
+    const responce = await axios.get('http://127.0.0.1:8000/api/notes/', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + String(authTokens.access),
+      },
+    });
+    if (responce.status === 200) return responce.data;
+    else if (responce.statusText === 'Unauthorized') {
+      logoutUser();
+    } else return [];
+  };
+
+  const contextData = { user, loginUser, logoutUser, getNotes };
 
   useEffect(() => {
+    if (loading) {
+      updateUserTokens();
+    }
     const interval = setInterval(() => {
       if (authTokens) {
         updateUserTokens();
@@ -82,6 +101,8 @@ export const AuthProvider = ({ children }: any) => {
   }, [authTokens, loading]);
 
   return (
-    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>
+      {loading ? null : children}
+    </AuthContext.Provider>
   );
 };
