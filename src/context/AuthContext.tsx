@@ -92,11 +92,12 @@ export const AuthProvider = ({ children }: any) => {
     if (loading) {
       updateUserTokens();
     }
+    const fourMinutes = 1000 * 60 * 4;
     const interval = setInterval(() => {
       if (authTokens) {
         updateUserTokens();
       }
-    }, 2000);
+    }, fourMinutes);
     return () => clearInterval(interval);
   }, [authTokens, loading]);
 
