@@ -14,7 +14,7 @@ interface IAuthContext {
 
 export const AuthContext = createContext({} as IAuthContext);
 
-export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
+export const AuthProvider = ({ children }: any) => {
   const navigate = useNavigate();
   const localStorageuserValue = JSON.parse(localStorage.getItem('authTokens')!);
   const [authTokens, setAuthTokens] = useState(() =>
@@ -25,7 +25,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       ? jwtDecode(localStorageuserValue.access as string)
       : null
   );
-  const [loading, setLoading] = useState(true);
 
   const loginUser = async (values: IAuthUser) => {
     try {
@@ -68,9 +67,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       logoutUser();
       console.log(e);
     }
-    if (loading) {
-      setLoading(false);
-    }
   };
 
   const getNotes = async () => {
@@ -89,9 +85,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const contextData = { user, loginUser, logoutUser, getNotes };
 
   useEffect(() => {
-    if (loading) {
-      updateUserTokens();
-    }
     const fourMinutes = 1000 * 60 * 4;
     const interval = setInterval(() => {
       if (authTokens) {
@@ -99,11 +92,9 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       }
     }, fourMinutes);
     return () => clearInterval(interval);
-  }, [authTokens, loading]);
+  }, [authTokens]);
 
   return (
-    <AuthContext.Provider value={contextData}>
-      {loading ? null : children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );
 };

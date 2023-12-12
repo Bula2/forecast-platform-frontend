@@ -14,7 +14,6 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 export const Registration = () => {
-  const { loginUser } = useContext(AuthContext);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const validateUsername = (value: string) => {
