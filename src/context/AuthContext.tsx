@@ -1,7 +1,7 @@
+import React, { PropsWithChildren } from 'react';
 import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { Alert } from 'antd';
 import { IAuthUser } from '../types/userTypes';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ interface IAuthContext {
 
 export const AuthContext = createContext({} as IAuthContext);
 
-export const AuthProvider = ({ children }: any) => {
+export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate();
   const localStorageuserValue = JSON.parse(localStorage.getItem('authTokens')!);
   const [authTokens, setAuthTokens] = useState(() =>

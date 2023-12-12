@@ -2,7 +2,7 @@ import React from 'react';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Login, Registration, Home } from './pages';
-import { MyLayout } from './components/MyLayout';
+import { MyLayout } from './components/MyLayout/MyLayout';
 import { PrivateRoute } from './utils/components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 
