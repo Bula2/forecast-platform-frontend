@@ -2,8 +2,6 @@ import { Divider, Layout, List, Typography } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
-const { Content } = Layout;
-
 export const Home = () => {
   const [notes, setNotes] = useState<any[]>([]);
   const { user, getNotes } = useContext(AuthContext);
@@ -16,7 +14,7 @@ export const Home = () => {
     setNotes(currentNotes);
   };
   return (
-    <Content style={{ margin: '16px' }}>
+    <>
       <Typography.Title level={4}>
         {user && `Добро пожаловать, ${user.username}!`}
       </Typography.Title>
@@ -32,6 +30,6 @@ export const Home = () => {
           </List.Item>
         )}
       />
-    </Content>
+    </>
   );
 };

@@ -3,7 +3,7 @@ import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { GreyContent } from '../GreyContent';
+import { GreyContent } from '../GreyContent/GreyContent';
 import { AuthContext } from '../../context/AuthContext';
 
 import styles from './MyLayout.module.scss';
@@ -53,20 +53,30 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
       icon: <UserOutlined />,
       children: [
         getItem({
-          label: 'Личный кабинет',
-          key: '1',
-          onClick: () => navigate('/'),
+          label: 'Мои прогнозы',
+          key: '2',
+          onClick: () => navigate('/forecasts'),
         }),
         getItem({
-          label: 'Мои визуализации',
-          key: '2',
-          onClick: () => navigate('/'),
+          label: 'Создать прогноз',
+          key: '4',
+          onClick: () => navigate('/create'),
+        }),
+        getItem({
+          label: 'Инструкции',
+          key: '5',
+          onClick: () => navigate('/instructions'),
+        }),
+        getItem({
+          label: 'Настройки',
+          key: '6',
+          onClick: () => navigate('/settings'),
         }),
       ],
     }),
     getItem({
       label: 'Выйти',
-      key: '3',
+      key: '1',
       icon: <LogoutOutlined />,
       onClick: () => logoutUser(),
     }),
@@ -85,7 +95,7 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
       </Sider>
       <Layout>
         {/* <Header className={styles.header} /> */}
-        {children}
+        <Content style={{ margin: '16px' }}>{children}</Content>
         <Footer style={{ textAlign: 'center' }}>
           Prophet ©2023 Created by BulaDev
         </Footer>

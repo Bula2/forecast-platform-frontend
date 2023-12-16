@@ -1,18 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import { AnyAction } from 'redux';
 
 const AUTH = 'authReducer/AUTH';
 const EXIT = 'authReducer/EXIT';
-interface IInitialState {
-  email: string | null;
-  password: string | null;
+
+interface IInitialUserState {
+  username: string | null;
+  user_id: string | null;
 }
 
-const initialState: IInitialState = {
-  email: null,
-  password: null,
+const initialState: IInitialUserState = {
+  username: null,
+  user_id: null,
 };
 
-const authReducer = (state = initialState, action: AnyAction) => {
+const userReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case AUTH: {
       return {
@@ -33,10 +35,4 @@ const authReducer = (state = initialState, action: AnyAction) => {
   }
 };
 
-export const authUser = (data: { email: string; password: string }) => ({
-  type: AUTH,
-  data,
-});
-
-export const exitUser = () => ({ type: EXIT });
-export default authReducer;
+export default userReducer;

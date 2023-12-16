@@ -6,7 +6,7 @@ import { Layout } from 'antd';
 import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthContext';
-import { MyLoader } from '../../components/MyLoader';
+import { MyLoader } from '../../components/MyLoader/MyLoader';
 
 import styles from './Login.module.scss';
 

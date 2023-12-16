@@ -4,6 +4,7 @@ import { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { IAuthUser } from '../types/userTypes';
 import { useNavigate } from 'react-router-dom';
+import { getNotesApi, loginUserApi, updateUserTokensApi } from '../api/api';
 
 interface IAuthContext {
   loginUser: (value: IAuthUser) => Promise<string>;
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: any) => {
 
   const loginUser = async (values: IAuthUser) => {
     try {
-      const responce = await axios.post('http://127.0.0.1:8000/api/token/', {
+      const responce = await loginUserApi({
         username: values.username,
         password: values.password,
       });
@@ -54,10 +55,9 @@ export const AuthProvider = ({ children }: any) => {
 
   const updateUserTokens = async () => {
     try {
-      const responce = await axios.post(
-        'http://127.0.0.1:8000/api/token/refresh/',
-        { refresh: localStorageuserValue.refresh as string }
-      );
+      const responce = await updateUserTokensApi({
+        refresh: localStorageuserValue.refresh as string,
+      });
       const data = responce.data;
       const currentUser = jwtDecode(data.access as string);
       setAuthTokens(data);
@@ -70,22 +70,24 @@ export const AuthProvider = ({ children }: any) => {
   };
 
   const getNotes = async () => {
-    const responce = await axios.get('http://127.0.0.1:8000/api/notes/', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + String(authTokens.access),
-      },
-    });
-    if (responce.status === 200) return responce.data;
-    else if (responce.statusText === 'Unauthorized') {
+    try {
+      const responce = await getNotesApi({
+        access: localStorageuserValue.access,
+      });
+      if (responce.status === 200) return responce.data;
+      else if (responce.statusText === 'Unauthorized') {
+        logoutUser();
+      } else return [];
+    } catch (e) {
       logoutUser();
-    } else return [];
+      console.log(e);
+    }
   };
 
   const contextData = { user, loginUser, logoutUser, getNotes };
 
   useEffect(() => {
-    const fourMinutes = 1000 * 60 * 4;
+    const fourMinutes = 1000 * 60 * 4; // Раз в 4 минуты
     const interval = setInterval(() => {
       if (authTokens) {
         updateUserTokens();
