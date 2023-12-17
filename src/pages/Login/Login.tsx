@@ -16,6 +16,7 @@ const { Title, Text } = Typography;
 export const Login = () => {
   const { loginUser } = useContext(AuthContext);
   const [isError, setIsError] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const validateEmail = (value: string) => {
     if (!value) {
@@ -129,6 +130,24 @@ export const Login = () => {
                 {'Нет аккаунта? '}
                 <Link to={'/registration'}>{'Зарегистрироваться'}</Link>
               </Text>
+              {isForgotPassword ? (
+                <Space direction="vertical" style={{ width: '400px' }}>
+                  <Alert
+                    message="Для восстаноыления напишите нам на почту test@mail.com"
+                    type="info"
+                    showIcon
+                    closable
+                    onClose={() => setIsForgotPassword(false)}
+                  />
+                </Space>
+              ) : (
+                <Text
+                  className={styles.fogrot}
+                  onClick={() => setIsForgotPassword(true)}
+                >
+                  <Link to={''}>{'Забыли пароль?'}</Link>
+                </Text>
+              )}
             </Form>
           )}
         </Formik>
