@@ -1,4 +1,4 @@
-import { Divider, Layout, List, Typography } from 'antd';
+import { Divider, List, Typography } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -16,9 +16,9 @@ export const Home = () => {
   return (
     <>
       <Typography.Title level={4}>
-        {user && `Добро пожаловать, ${user.username}!`}
+        {user && `Добро пожаловать, ${user.first_name || user.email}!`}
       </Typography.Title>
-      <Divider orientation="left">Ваши посты</Divider>
+      <Divider orientation="left">{'Ваши посты'}</Divider>
       <List
         bordered
         dataSource={notes}

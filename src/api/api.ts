@@ -15,6 +15,23 @@ export const loginUserApi = async ({ username, password }: ILoginUserApi) =>
     password,
   });
 
+interface IRegisterUserApi {
+  name?: string;
+  email: string;
+  password: string;
+}
+
+export const registerUserApi = async ({
+  name,
+  email,
+  password,
+}: IRegisterUserApi) =>
+  await instance.post('user/add/', {
+    name,
+    email,
+    password,
+  });
+
 interface IUpdateUserTokensApi {
   refresh: string;
 }

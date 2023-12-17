@@ -17,9 +17,13 @@ export const Login = () => {
   const { loginUser } = useContext(AuthContext);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const validateUsername = (value: string) => {
+  const validateEmail = (value: string) => {
     if (!value) {
       return 'Обязательное поле';
+    } else {
+      if (!/[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]/.test(value)) {
+        return 'Введите валидный email';
+      }
     }
   };
   const validatePassword = (value: string) => {
@@ -36,14 +40,14 @@ export const Login = () => {
       <Content className="flex justify-center items-center h-screen">
         <Formik
           initialValues={{
-            username: '',
+            email: '',
             password: '',
           }}
           onSubmit={async (values) => {
             setIsError(false);
             setIsLoading(true);
             const answer = await loginUser(values);
-            if (answer === 'error') {
+            if (answer.type === 'error') {
               setIsLoading(false);
               setIsError(true);
             }
@@ -58,23 +62,23 @@ export const Login = () => {
                 <label
                   className={cx(
                     styles.label,
-                    errors.username && touched.username && styles.red
+                    errors.email && touched.email && styles.red
                   )}
-                  htmlFor="username"
+                  htmlFor="email"
                 >
-                  {'Логин'}
+                  {'Email'}
                 </label>
                 <Field
-                  id="username"
-                  name="username"
-                  validate={validateUsername}
+                  id="email"
+                  name="email"
+                  validate={validateEmail}
                   className={cx(
                     styles.input,
-                    errors.username && touched.username && styles.red
+                    errors.email && touched.email && styles.red
                   )}
                 ></Field>
-                {errors.username && touched.username && (
-                  <div className={styles.errors}>{errors.username}</div>
+                {errors.email && touched.email && (
+                  <div className={styles.errors}>{errors.email}</div>
                 )}
               </div>
 

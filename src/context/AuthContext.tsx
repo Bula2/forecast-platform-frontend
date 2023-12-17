@@ -1,14 +1,18 @@
-import React, { PropsWithChildren } from 'react';
-import axios from 'axios';
 import { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { IAuthUser } from '../types/userTypes';
+import { IAuthUser, IRegisterUser, IUser, IResponceAnswerType } from '../types';
 import { useNavigate } from 'react-router-dom';
-import { getNotesApi, loginUserApi, updateUserTokensApi } from '../api/api';
+import {
+  getNotesApi,
+  loginUserApi,
+  registerUserApi,
+  updateUserTokensApi,
+} from '../api/api';
 
 interface IAuthContext {
-  loginUser: (value: IAuthUser) => Promise<string>;
-  user: any;
+  user: IUser | null;
+  loginUser: (value: IAuthUser) => Promise<IResponceAnswerType>;
+  registerUser: (value: IRegisterUser) => Promise<IResponceAnswerType>;
   logoutUser: () => void;
   getNotes: () => Promise<any[]>;
 }
@@ -21,7 +25,7 @@ export const AuthProvider = ({ children }: any) => {
   const [authTokens, setAuthTokens] = useState(() =>
     localStorageuserValue ? localStorageuserValue : null
   );
-  const [user, setUser] = useState<any>(() =>
+  const [user, setUser] = useState<IUser | null>(() =>
     localStorageuserValue
       ? jwtDecode(localStorageuserValue.access as string)
       : null
@@ -30,19 +34,32 @@ export const AuthProvider = ({ children }: any) => {
   const loginUser = async (values: IAuthUser) => {
     try {
       const responce = await loginUserApi({
-        username: values.username,
+        username: values.email,
         password: values.password,
       });
       const data = responce.data;
       const currentUser = jwtDecode(data.access as string);
       setAuthTokens(data);
-      setUser(currentUser);
+      setUser(currentUser as any);
       localStorage.setItem('authTokens', JSON.stringify(data));
       navigate('/');
-      return 'success';
+      return { type: 'success' };
     } catch (e) {
-      console.log(e);
-      return 'error';
+      return { type: 'error' };
+    }
+  };
+
+  const registerUser = async (values: IRegisterUser) => {
+    try {
+      await registerUserApi({
+        name: values?.name,
+        email: values.email,
+        password: values.password,
+      });
+      const newValues = { email: values.email, password: values.password };
+      return loginUser(newValues);
+    } catch (e: any) {
+      return { type: 'error', value: e.responce.data.message };
     }
   };
 
@@ -61,11 +78,10 @@ export const AuthProvider = ({ children }: any) => {
       const data = responce.data;
       const currentUser = jwtDecode(data.access as string);
       setAuthTokens(data);
-      setUser(currentUser);
+      setUser(currentUser as any);
       localStorage.setItem('authTokens', JSON.stringify(data));
     } catch (e) {
       logoutUser();
-      console.log(e);
     }
   };
 
@@ -80,11 +96,10 @@ export const AuthProvider = ({ children }: any) => {
       } else return [];
     } catch (e) {
       logoutUser();
-      console.log(e);
     }
   };
 
-  const contextData = { user, loginUser, logoutUser, getNotes };
+  const contextData = { user, loginUser, logoutUser, getNotes, registerUser };
 
   useEffect(() => {
     const fourMinutes = 1000 * 60 * 4; // Раз в 4 минуты

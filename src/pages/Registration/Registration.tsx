@@ -14,13 +14,9 @@ const { Content } = Layout;
 const { Title, Text } = Typography;
 
 export const Registration = () => {
+  const { registerUser } = useContext(AuthContext);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const validateUsername = (value: string) => {
-    if (!value) {
-      return 'Обязательное поле';
-    }
-  };
   const validateEmail = (value: string) => {
     if (!value) {
       return 'Обязательное поле';
@@ -44,16 +40,18 @@ export const Registration = () => {
       <Content className="flex justify-center items-center h-screen">
         <Formik
           initialValues={{
-            username: '',
+            name: '',
             password: '',
             email: '',
           }}
           onSubmit={async (values) => {
             setIsError(false);
             setIsLoading(true);
-            console.log(values);
-            setIsLoading(false);
-            setIsError(true);
+            const answer = await registerUser(values);
+            if (answer.type === 'error') {
+              setIsLoading(false);
+              setIsError(true);
+            }
           }}
         >
           {({ errors, touched }) => (
@@ -66,35 +64,12 @@ export const Registration = () => {
                 <label
                   className={cx(
                     styles.label,
-                    errors.username && touched.username && styles.red
-                  )}
-                  htmlFor="username"
-                >
-                  {'Логин'}
-                </label>
-                <Field
-                  id="username"
-                  name="username"
-                  validate={validateUsername}
-                  className={cx(
-                    styles.input,
-                    errors.username && touched.username && styles.red
-                  )}
-                ></Field>
-                {errors.username && touched.username && (
-                  <div className={styles.errors}>{errors.username}</div>
-                )}
-              </div>
-
-              <div className={cx(styles.field)}>
-                <label
-                  className={cx(
-                    styles.label,
                     errors.email && touched.email && styles.red
                   )}
                   htmlFor="email"
                 >
                   {'Email'}
+                  <span className={styles.red}>{'*'}</span>
                 </label>
                 <Field
                   id="email"
@@ -110,6 +85,29 @@ export const Registration = () => {
                 )}
               </div>
 
+              <div className={cx(styles.field)}>
+                <label
+                  className={cx(
+                    styles.label,
+                    errors.name && touched.name && styles.red
+                  )}
+                  htmlFor="name"
+                >
+                  {'Имя'}
+                </label>
+                <Field
+                  id="name"
+                  name="name"
+                  className={cx(
+                    styles.input,
+                    errors.name && touched.name && styles.red
+                  )}
+                ></Field>
+                {errors.name && touched.name && (
+                  <div className={styles.errors}>{errors.name}</div>
+                )}
+              </div>
+
               <div className={styles.field}>
                 <label
                   className={cx(
@@ -119,6 +117,7 @@ export const Registration = () => {
                   htmlFor="password"
                 >
                   {'Пароль'}
+                  <span className={styles.red}>{'*'}</span>
                 </label>
                 <Field
                   id="password"
@@ -140,12 +139,12 @@ export const Registration = () => {
                 className={styles.button}
                 htmlType="submit"
               >
-                {isLoading ? <MyLoader /> : 'Войти'}
+                {isLoading ? <MyLoader /> : 'Зарегестрироваться'}
               </Button>
               {isError && (
                 <Space direction="vertical" style={{ width: '400px' }}>
                   <Alert
-                    message="Неверный логин или пароль"
+                    message="Пользователь с таким email уже существует"
                     type="error"
                     showIcon
                     closable
