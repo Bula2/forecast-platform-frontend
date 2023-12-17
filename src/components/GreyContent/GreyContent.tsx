@@ -1,14 +1,12 @@
 import React from 'react';
+import { Image } from 'antd';
+
+import styles from './GreyContent.module.scss';
 
 export const GreyContent = () => {
   return (
-    <div
-      style={{
-        height: '50px',
-        backgroundColor: '#334454',
-        margin: '10px',
-        borderRadius: '5px',
-      }}
-    />
+    <div className={styles.wrapper}>
+      <Image width={40} src="../../images/icon2.png" preview={false} />
+    </div>
   );
 };
