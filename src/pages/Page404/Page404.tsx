@@ -26,11 +26,11 @@ export const Page404 = () => {
             {'Error - 404'}
           </span>
         </h1>
-        <p className={styles.p}> This page is unavailable</p>
-        <p className={styles.p}>* Please return home.</p>
+        <p className={styles.p}>{'This page is unavailable'}</p>
+        <p className={styles.p}>{'* Please return home'}</p>
         <nav className={styles.nav}>
           <Link to="/" className={isVika ? styles.linkForVika : styles.link}>
-            На главную
+            {'На главную'}
           </Link>
         </nav>
       </main>

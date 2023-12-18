@@ -7,6 +7,7 @@ import { GreyContent } from '../GreyContent/GreyContent';
 import { AuthContext } from '../../context/AuthContext';
 
 import styles from './MyLayout.module.scss';
+import { useMediaQuery } from '../../hooks';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -36,6 +37,7 @@ interface IMyLayout {
 
 export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
   const location = useLocation(); //location.pathname
+  const media = useMediaQuery('(max-width: 680px)');
   const { logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
@@ -86,7 +88,7 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
     <Layout style={{ minHeight: '100vh' }}>
       <Sider
         collapsible
-        collapsed={collapsed}
+        collapsed={media ? true : collapsed}
         onCollapse={(value) => setCollapsed(value)}
         width={300}
       >
