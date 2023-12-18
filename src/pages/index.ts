@@ -6,3 +6,4 @@ export * from './Instructions/Instructions';
 export * from './Settings/Settings';
 export * from './MyForectasts/MyForectasts';
 export * from './Forecast/Forecast';
+export * from './Page404/Page404';

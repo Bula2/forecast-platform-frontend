@@ -10,11 +10,11 @@ import {
   Settings,
   MyForectasts,
   Forecast,
+  Page404,
 } from './pages';
 import { MyLayout } from './components/MyLayout/MyLayout';
 import { PrivateRoute } from './utils/components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
-
 function App() {
   return (
     <div>
@@ -80,6 +80,14 @@ function App() {
                   <MyLayout>
                     <Forecast />
                   </MyLayout>
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <PrivateRoute>
+                  <Page404 />
                 </PrivateRoute>
               }
             />
