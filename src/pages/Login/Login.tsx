@@ -33,7 +33,6 @@ export const Login: React.FC = () => {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const onFinish = async (values: IAuthUser) => {
-    console.log(values);
     setIsError(false);
     setIsLoading(true);
     const answer = await loginUser({
