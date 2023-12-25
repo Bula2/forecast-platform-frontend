@@ -51,16 +51,15 @@ export const Login: React.FC = () => {
         <Form
           name="login"
           form={form}
+          layout="vertical"
           className={styles.form}
           initialValues={{ remember: false }}
           onFinish={onFinish}
         >
           <Title level={2}>{'Авторизация'}</Title>
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="email">
-              {'Email'}
-            </label>
             <Form.Item<FieldType>
+              label="Email"
               name="email"
               rules={[
                 { required: true, message: 'Введите email' },
@@ -81,10 +80,8 @@ export const Login: React.FC = () => {
             </Form.Item>
           </div>
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="password">
-              {'Пароль'}
-            </label>
             <Form.Item<FieldType>
+              label="Пароль"
               name="password"
               rules={[
                 { required: true, message: 'Введите пароль' },

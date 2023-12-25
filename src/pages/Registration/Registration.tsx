@@ -38,6 +38,7 @@ export const Registration = () => {
         <Form
           form={form}
           name="registration"
+          layout="vertical"
           className={styles.form}
           initialValues={{ remember: true }}
           onFinish={onFinish}
@@ -46,11 +47,19 @@ export const Registration = () => {
             {'Регистрация'}
           </Title>
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="email">
-              {'Email'}
-            </label>
+            <Form.Item<FieldType> name="name" label="Имя">
+              <Input
+                className={styles.input}
+                name="name"
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Имя"
+              />
+            </Form.Item>
+          </div>
+          <div className={styles.field}>
             <Form.Item<FieldType>
               name="email"
+              label="Email"
               rules={[
                 { required: true, message: 'Введите email' },
                 {
@@ -70,24 +79,9 @@ export const Registration = () => {
             </Form.Item>
           </div>
           <div className={styles.field}>
-            <label className={styles.label} htmlFor="name">
-              {'Имя'}
-            </label>
-            <Form.Item<FieldType> name="name">
-              <Input
-                className={styles.input}
-                name="name"
-                prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Имя"
-              />
-            </Form.Item>
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label} htmlFor="password">
-              {'Пароль'}
-            </label>
             <Form.Item<FieldType>
               name="password"
+              label="Пароль"
               rules={[
                 { required: true, message: 'Введите пароль' },
                 // {

@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Layout, Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GreyContent } from '../GreyContent/GreyContent';
 import { AuthContext } from '../../context/AuthContext';
@@ -42,43 +42,57 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
+  const [currentLocation, setCurrentLocation] = useState(location.pathname);
+
+  useEffect(() => {
+    if (location) {
+      if (currentLocation !== location.pathname) {
+        setCurrentLocation(location.pathname);
+      }
+    }
+  }, [location, currentLocation]);
+
+  function handleClickOnLocation(e: any) {
+    setCurrentLocation(e.key);
+  }
+
   const items: MenuItem[] = [
     getItem({
       label: 'Главная',
-      key: '0',
+      key: '/',
       icon: <HomeOutlined />,
       onClick: () => navigate('/'),
     }),
     getItem({
       label: 'Меню',
-      key: 'sub1',
+      key: 'submenu',
       icon: <UserOutlined />,
       children: [
         getItem({
           label: 'Мои прогнозы',
-          key: '2',
+          key: '/forecasts',
           onClick: () => navigate('/forecasts'),
         }),
         getItem({
           label: 'Создать прогноз',
-          key: '4',
+          key: '/create',
           onClick: () => navigate('/create'),
         }),
         getItem({
           label: 'Инструкции',
-          key: '5',
+          key: '/instructions',
           onClick: () => navigate('/instructions'),
         }),
         getItem({
           label: 'Настройки',
-          key: '6',
+          key: '/settings',
           onClick: () => navigate('/settings'),
         }),
       ],
     }),
     getItem({
       label: 'Выйти',
-      key: '1',
+      key: 'logout',
       icon: <LogoutOutlined />,
       onClick: () => logoutUser(),
     }),
@@ -93,13 +107,19 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
         width={300}
       >
         <GreyContent />
-        <Menu theme="dark" mode="inline" items={items} />
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultOpenKeys={['submenu']}
+          items={items}
+          onClick={handleClickOnLocation}
+          selectedKeys={[currentLocation]}
+        />
       </Sider>
       <Layout>
-        {/* <Header className={styles.header} /> */}
         <Content style={{ margin: '16px' }}>{children}</Content>
         <Footer style={{ textAlign: 'center' }}>
-          Prophet ©2023 Created by BulaDev
+          ProphetRu ©2023 Created by BulaDev
         </Footer>
       </Layout>
     </Layout>

@@ -15,7 +15,7 @@ export const Home = () => {
   };
   return (
     <>
-      <Typography.Title level={4}>
+      <Typography.Title level={3}>
         {user && `Добро пожаловать, ${user.first_name || user.email}!`}
       </Typography.Title>
       <Divider orientation="left">{'Ваши посты'}</Divider>
