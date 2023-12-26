@@ -119,7 +119,7 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
       <Layout>
         <Content style={{ margin: '16px' }}>{children}</Content>
         <Footer style={{ textAlign: 'center' }}>
-          ProphetRu ©2023 Created by BulaDev
+          {'Forecast Platform ©2023 Created by BulaDev'}
         </Footer>
       </Layout>
     </Layout>
