@@ -34,7 +34,8 @@ export const Registration = () => {
 
   return (
     <Layout>
-      <Content className="flex justify-center items-center h-screen">
+      <Content className={styles.content}>
+        <div className={styles.backgroundImage}></div>
         <Form
           form={form}
           name="registration"

@@ -19,7 +19,7 @@ export const Home = () => {
     setNotes(currentNotes);
   };
   return (
-    <>
+    <div>
       <Title level={3}>
         {user && `Добро пожаловать, ${user.first_name || user.email}!`}
       </Title>
@@ -41,6 +41,6 @@ export const Home = () => {
       <Text className={styles.link}>
         <Link to={'/instructions'}>{'Инструкции'}</Link>
       </Text>
-    </>
+    </div>
   );
 };

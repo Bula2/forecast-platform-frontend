@@ -47,7 +47,8 @@ export const Login: React.FC = () => {
 
   return (
     <Layout>
-      <Content className="flex justify-center items-center h-screen">
+      <Content className={styles.content}>
+        <div className={styles.backgroundImage}></div>
         <Form
           name="login"
           form={form}
