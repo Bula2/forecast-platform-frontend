@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: any) => {
       const newValues = { email: values.email, password: values.password };
       return loginUser(newValues);
     } catch (e: any) {
-      return { type: 'error', value: e.responce.data.message };
+      return { type: 'error', value: e.response.data.detail };
     }
   };
 

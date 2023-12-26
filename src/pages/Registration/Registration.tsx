@@ -1,164 +1,131 @@
-import { useContext, useState } from 'react';
-import { Alert, Button, Space, Typography } from 'antd';
-import cx from 'classnames';
-import { Field, Form, Formik } from 'formik';
-import { Layout } from 'antd';
-import { Link } from 'react-router-dom';
-
+import React, { useContext, useState } from 'react';
+import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
+import { Alert, Button, Form, Input, Layout, Space, Typography } from 'antd';
 import { AuthContext } from '../../context/AuthContext';
 import { MyLoader } from '../../components/MyLoader/MyLoader';
+import { Link } from 'react-router-dom';
 
 import styles from './Registration.module.scss';
+import { IRegisterUser } from '../../types';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
+type FieldType = {
+  email?: string;
+  name?: string;
+  password?: string;
+};
+
 export const Registration = () => {
+  const [form] = Form.useForm();
   const { registerUser } = useContext(AuthContext);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const validateEmail = (value: string) => {
-    if (!value) {
-      return 'Обязательное поле';
-    } else {
-      if (!/[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]/.test(value)) {
-        return 'Введите валидный email';
-      }
+  const onFinish = async (values: IRegisterUser) => {
+    setIsError(false);
+    setIsLoading(true);
+    const answer = await registerUser(values);
+    if (answer.type === 'error') {
+      setIsLoading(false);
+      setIsError(true);
     }
   };
-  const validatePassword = (value: string) => {
-    if (!value) {
-      return 'Обязательное поле';
-    }
-    // else {
-    //   if (!/[a-zA-Z0-9]{4,}/.test(value))
-    //     return 'Пароль должен содержать не менее 8 символов (без кириллицы)';
-    // }
-  };
+
   return (
     <Layout>
       <Content className="flex justify-center items-center h-screen">
-        <Formik
-          initialValues={{
-            name: '',
-            password: '',
-            email: '',
-          }}
-          onSubmit={async (values) => {
-            setIsError(false);
-            setIsLoading(true);
-            const answer = await registerUser(values);
-            if (answer.type === 'error') {
-              setIsLoading(false);
-              setIsError(true);
-            }
-          }}
+        <Form
+          form={form}
+          name="registration"
+          layout="vertical"
+          className={styles.form}
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
         >
-          {({ errors, touched }) => (
-            <Form className={styles.form}>
-              <Title level={2} className={styles.title}>
-                {'Регистрация'}
-              </Title>
-
-              <div className={cx(styles.field)}>
-                <label
-                  className={cx(
-                    styles.label,
-                    errors.email && touched.email && styles.red
-                  )}
-                  htmlFor="email"
-                >
-                  {'Email'}
-                  <span className={styles.red}>{'*'}</span>
-                </label>
-                <Field
-                  id="email"
-                  name="email"
-                  validate={validateEmail}
-                  className={cx(
-                    styles.input,
-                    errors.email && touched.email && styles.red
-                  )}
-                ></Field>
-                {errors.email && touched.email && (
-                  <div className={styles.errors}>{errors.email}</div>
-                )}
-              </div>
-
-              <div className={cx(styles.field)}>
-                <label
-                  className={cx(
-                    styles.label,
-                    errors.name && touched.name && styles.red
-                  )}
-                  htmlFor="name"
-                >
-                  {'Имя'}
-                </label>
-                <Field
-                  id="name"
-                  name="name"
-                  className={cx(
-                    styles.input,
-                    errors.name && touched.name && styles.red
-                  )}
-                ></Field>
-                {errors.name && touched.name && (
-                  <div className={styles.errors}>{errors.name}</div>
-                )}
-              </div>
-
-              <div className={styles.field}>
-                <label
-                  className={cx(
-                    styles.label,
-                    errors.password && touched.password && styles.red
-                  )}
-                  htmlFor="password"
-                >
-                  {'Пароль'}
-                  <span className={styles.red}>{'*'}</span>
-                </label>
-                <Field
-                  id="password"
-                  name="password"
-                  type="password"
-                  validate={validatePassword}
-                  className={cx(
-                    styles.input,
-                    errors.password && touched.password && styles.red
-                  )}
-                ></Field>
-                {errors.password && touched.password && (
-                  <div className={styles.errors}>{errors.password}</div>
-                )}
-              </div>
-              <Button
-                type="primary"
-                block
-                className={styles.button}
-                htmlType="submit"
-              >
-                {isLoading ? <MyLoader /> : 'Зарегестрироваться'}
-              </Button>
-              {isError && (
-                <Space direction="vertical" style={{ width: '400px' }}>
-                  <Alert
-                    message="Пользователь с таким email уже существует"
-                    type="error"
-                    showIcon
-                    closable
-                    onClose={() => setIsError(false)}
-                  />
-                </Space>
-              )}
-              <Text className={styles.link}>
-                {'Уже есть аккаунт? '}
-                <Link to={'/login'}>Войти</Link>
-              </Text>
-            </Form>
+          <Title level={2} className={styles.title}>
+            {'Регистрация'}
+          </Title>
+          <div className={styles.field}>
+            <Form.Item<FieldType> name="name" label="Имя">
+              <Input
+                className={styles.input}
+                name="name"
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Имя"
+              />
+            </Form.Item>
+          </div>
+          <div className={styles.field}>
+            <Form.Item<FieldType>
+              name="email"
+              label="Email"
+              rules={[
+                { required: true, message: 'Введите email' },
+                {
+                  pattern: new RegExp(
+                    /[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]/
+                  ),
+                  message: 'Введите корректный email',
+                },
+              ]}
+            >
+              <Input
+                className={styles.input}
+                name="email"
+                prefix={<MailOutlined className="site-form-item-icon" />}
+                placeholder="Email"
+              />
+            </Form.Item>
+          </div>
+          <div className={styles.field}>
+            <Form.Item<FieldType>
+              name="password"
+              label="Пароль"
+              rules={[
+                { required: true, message: 'Введите пароль' },
+                // {
+                //   pattern: new RegExp(/[a-zA-Z0-9]{4,}/),
+                //   message:
+                //     'Пароль должен содержать не менее 8 символов (без кириллицы)',
+                // },
+              ]}
+            >
+              <Input.Password
+                className={styles.input}
+                name="password"
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Пароль"
+              />
+            </Form.Item>
+          </div>
+          <Form.Item>
+            <Button
+              type="primary"
+              block
+              className={styles.button}
+              htmlType="submit"
+            >
+              {isLoading ? <MyLoader /> : 'Зарегистрироваться'}
+            </Button>
+          </Form.Item>
+          {isError && (
+            <Space direction="vertical" className={styles.alert}>
+              <Alert
+                message="Пользователь с таким email уже существует"
+                type="error"
+                showIcon
+                closable
+                onClose={() => setIsError(false)}
+              />
+            </Space>
           )}
-        </Formik>
+          <Text className={styles.link}>
+            {'Уже есть аккаунт? '}
+            <Link to={'/login'}>Войти</Link>
+          </Text>
+        </Form>
       </Content>
     </Layout>
   );

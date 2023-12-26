@@ -1,30 +1,74 @@
-import React, { useState } from 'react';
-import { Col, Row, Typography, message, Upload } from 'antd';
-import { MyUploader } from './components/Uploader/MyUploader';
+import { Button, Divider, Form, Typography, message } from 'antd';
 import { Link } from 'react-router-dom';
 
+import axios from 'axios';
 import styles from './CreateForecast.module.scss';
+import { ICreateForecast } from '../../types/createForecastsTypes';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { CommonInfo, ForecastInfo, MyUploader } from './modules';
 
 const { Title, Text } = Typography;
 
 export const CreateForecast = () => {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [data, setData] = useState<number[]>([]);
-  console.log(data);
-  console.log(categories);
+  const { user } = useContext(AuthContext);
+  const onFinish = async (values: ICreateForecast) => {
+    console.log({
+      user_id: user?.user_id,
+      file: values.file[0].originFileObj,
+      title: values.title,
+      subtitle: values.subtitle,
+      prognosis_type: values.prognosis_type,
+      is_auto_params_forecast: values.is_auto_params_forecast,
+      p_value: values.p_value,
+      d_value: values.d_value,
+      q_value: values.q_value,
+      n_count: values.n_count,
+    });
+    message.success(`Прогноз успешно создан!`);
+    // try {
+    //   await axios.post(
+    //     'http://127.0.0.1:8000/api/file/add/',
+    //     { file: values.file[0].originFileObj },
+    //     {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //       },
+    //     }
+    //   );
+    //   message.success(`Прогноз создан!`);
+    // } catch (e: any) {
+    //   console.log(e);
+    // }
+  };
   return (
-    <div>
-      <Title level={3}>{'Создание прогноза'}</Title>
-      <Text className={styles.linkInstructions}>
-        {'Перед создание прогноза ознакомтесь с '}
-        <Link to="/instructions">{'Инструкцией'}</Link>
-      </Text>
-      <MyUploader
-        data={data}
-        categories={categories}
-        setData={setData}
-        setCategories={setCategories}
-      />
-    </div>
+    <Form
+      name="forecast"
+      layout={'vertical'}
+      onFinish={onFinish}
+      initialValues={{
+        ['prognosis_type']: 'arima',
+        ['p_value']: 0,
+        ['d_value']: 0,
+        ['q_value']: 0,
+        ['n_count']: 3,
+      }}
+    >
+      <div className={styles.wrapper}>
+        <Title level={3}>{'Создание прогноза'}</Title>
+        <Text className={styles.linkInstructions}>
+          {'Перед создание прогноза ознакомьтесь с '}
+          <Link to="/instructions">{'Инструкцией'}</Link>
+        </Text>
+        <MyUploader />
+        <CommonInfo />
+        <ForecastInfo />
+        <Form.Item className={styles.buttonWrapper}>
+          <Button type="primary" htmlType="submit">
+            {'Создать прогноз'}
+          </Button>
+        </Form.Item>
+      </div>
+    </Form>
   );
 };
