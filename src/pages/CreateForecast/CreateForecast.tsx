@@ -19,7 +19,13 @@ export const CreateForecast = () => {
       title: values.title,
       subtitle: values.subtitle,
       prognosis_type: values.prognosis_type,
+      is_auto_params_forecast: values.is_auto_params_forecast,
+      p_value: values.p_value,
+      d_value: values.d_value,
+      q_value: values.q_value,
+      n_count: values.n_count,
     });
+    message.success(`Прогноз успешно создан!`);
     // try {
     //   await axios.post(
     //     'http://127.0.0.1:8000/api/file/add/',
@@ -36,7 +42,18 @@ export const CreateForecast = () => {
     // }
   };
   return (
-    <Form name="forecast" layout={'vertical'} onFinish={onFinish}>
+    <Form
+      name="forecast"
+      layout={'vertical'}
+      onFinish={onFinish}
+      initialValues={{
+        ['prognosis_type']: 'arima',
+        ['p_value']: 0,
+        ['d_value']: 0,
+        ['q_value']: 0,
+        ['n_count']: 3,
+      }}
+    >
       <div className={styles.wrapper}>
         <Title level={3}>{'Создание прогноза'}</Title>
         <Text className={styles.linkInstructions}>

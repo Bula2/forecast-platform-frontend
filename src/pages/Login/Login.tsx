@@ -102,7 +102,7 @@ export const Login: React.FC = () => {
             </Form.Item>
           </div>
           <div className={styles.field}>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Form.Item valuePropName="checked" name="remember">
               <Checkbox className={styles.checkbox}>
                 {'Запомнить меня'}
               </Checkbox>
