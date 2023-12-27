@@ -8,4 +8,7 @@ export interface ICreateForecast {
   d_value?: number;
   q_value?: number;
   n_count: number;
+  visualization_type: string;
+  color: any;
+  unit?: string;
 }

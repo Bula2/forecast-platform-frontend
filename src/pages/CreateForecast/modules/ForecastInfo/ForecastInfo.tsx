@@ -8,6 +8,11 @@ import styles from './ForecastInfo.module.scss';
 export const ForecastInfo = () => {
   const [isAutoParams, setIsAutoParams] = useState<boolean>(false);
 
+  const filterOption = (
+    input: string,
+    option?: { label: string; value: string }
+  ) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+
   const handleCheckboxClick = () => setIsAutoParams(!isAutoParams);
   return (
     <>
@@ -26,6 +31,7 @@ export const ForecastInfo = () => {
               placeholder="Модель прогноза"
               optionFilterProp="children"
               className={styles.input}
+              filterOption={filterOption}
               options={[
                 {
                   label: 'Модель Arima',
@@ -67,7 +73,7 @@ export const ForecastInfo = () => {
                 },
               ]}
             >
-              <InputNumber min={'0'} disabled={isAutoParams} />
+              <InputNumber min={'0'} max={'100'} disabled={isAutoParams} />
             </Form.Item>
             <MyTooltip
               title="Параметр p для создания прогноза"
@@ -86,7 +92,7 @@ export const ForecastInfo = () => {
                 },
               ]}
             >
-              <InputNumber min={'0'} disabled={isAutoParams} />
+              <InputNumber min={'0'} max={'100'} disabled={isAutoParams} />
             </Form.Item>
             <MyTooltip
               title="Параметр d для создания прогноза"
@@ -105,7 +111,7 @@ export const ForecastInfo = () => {
                 },
               ]}
             >
-              <InputNumber min={'0'} disabled={isAutoParams} />
+              <InputNumber min={'0'} max={'100'} disabled={isAutoParams} />
             </Form.Item>
             <MyTooltip
               title="Параметр q для создания прогноза"
