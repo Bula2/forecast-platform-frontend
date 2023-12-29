@@ -85,6 +85,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
+  // Тестовый
   const getNotes = async () => {
     try {
       const responce = await getNotesApi({

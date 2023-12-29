@@ -4,20 +4,21 @@ import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 import styles from './Home.module.scss';
+import { fastMenuItems } from './utils/constants';
 
 const { Title, Text, Paragraph } = Typography;
 
 export const Home = () => {
-  const [notes, setNotes] = useState<any[]>([]);
   const { user, getNotes } = useContext(AuthContext);
-  useEffect(() => {
-    getCurrentNotes();
-  }, []);
+  // useEffect(() => {
+  //   getCurrentNotes();
+  // }, []);
 
-  const getCurrentNotes = async () => {
-    const currentNotes = await getNotes();
-    setNotes(currentNotes);
-  };
+  // const getCurrentNotes = async () => {
+  //   const currentNotes = await getNotes();
+  //   setNotes(currentNotes);
+  // };
+
   return (
     <div>
       <Title level={3}>
@@ -32,15 +33,23 @@ export const Home = () => {
       <Paragraph className={styles.paragraph}>
         {'Для полноценной работы с системой - Авторизуйтесь!'}
       </Paragraph>
-      <Text className={styles.link}>
-        <Link to={'/create'}>{'Создать прогноз'}</Link>
-      </Text>
-      <Text className={styles.link}>
-        <Link to={'/forecasts'}>{'Мои прогнозы'}</Link>
-      </Text>
-      <Text className={styles.link}>
-        <Link to={'/instructions'}>{'Инструкции'}</Link>
-      </Text>
+      <List
+        size="large"
+        header={
+          <Text strong className={styles.menu__title}>
+            Быстрое меню
+          </Text>
+        }
+        bordered
+        dataSource={fastMenuItems}
+        renderItem={(item) => (
+          <List.Item>
+            <Text className={styles.link}>
+              <Link to={item.link}>{item.text}</Link>
+            </Text>
+          </List.Item>
+        )}
+      />
     </div>
   );
 };

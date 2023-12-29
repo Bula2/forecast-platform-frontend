@@ -1,9 +1,13 @@
 .link {
-    display: block;
-    font-size: 20px;
-    margin-top: 5px;
+    font-size: 18px;
 }
 
 .paragraph {
     font-size: 18px;
+}
+
+.menu {
+    &__title {
+        font-size: 20px;
+    }
 }

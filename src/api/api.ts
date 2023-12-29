@@ -45,6 +45,7 @@ interface IGetNotesApi {
   access: string;
 }
 
+// Тестовый
 export const getNotesApi = async ({ access }: IGetNotesApi) =>
   await instance.get('notes/', {
     headers: {
