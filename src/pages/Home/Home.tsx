@@ -21,18 +21,26 @@ export const Home = () => {
 
   return (
     <div>
-      <Title level={3}>
-        {user && `Добро пожаловать, ${user.first_name || user.email}!`}
-      </Title>
+      {user && (
+        <Title level={3}>
+          {`Добро пожаловать, ${user.first_name || user.email}!`}
+        </Title>
+      )}
       <Divider orientation="left"></Divider>
       <Paragraph className={styles.paragraph}>
         {
           'Вас приветствует ProhetRu - универсальная система прогнозирования динамических показателей, представленных в виде временного ряда.'
         }
       </Paragraph>
-      <Paragraph className={styles.paragraph}>
-        {'Для полноценной работы с системой - Авторизуйтесь!'}
-      </Paragraph>
+      {!user && (
+        <Paragraph className={styles.paragraph}>
+          {'Для полноценной работы с системой - '}
+          <Text className={styles.link}>
+            <Link to={'/login'}>{'Авторизуйтесь'}</Link>
+          </Text>
+          {'!'}
+        </Paragraph>
+      )}
       <List
         size="large"
         header={

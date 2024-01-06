@@ -1,15 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { HomeOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  UserOutlined,
+  LogoutOutlined,
+  LoginOutlined,
+} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { GreyContent } from '../GreyContent/GreyContent';
 import { AuthContext } from '../../context/AuthContext';
-
-import styles from './MyLayout.module.scss';
 import { useMediaQuery } from '../../hooks';
 
-const { Header, Content, Footer, Sider } = Layout;
+import styles from './MyLayout.module.scss';
+
+const { Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -38,7 +43,7 @@ interface IMyLayout {
 export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
   const location = useLocation(); //location.pathname
   const media = useMediaQuery('(max-width: 680px)');
-  const { logoutUser } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -90,12 +95,21 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
         }),
       ],
     }),
-    getItem({
-      label: 'Выйти',
-      key: 'logout',
-      icon: <LogoutOutlined />,
-      onClick: () => logoutUser(),
-    }),
+    getItem(
+      user
+        ? {
+            label: 'Выйти',
+            key: 'logout',
+            icon: <LogoutOutlined />,
+            onClick: () => logoutUser(),
+          }
+        : {
+            label: 'Войти',
+            key: 'login',
+            icon: <LoginOutlined />,
+            onClick: () => navigate('/login'),
+          }
+    ),
   ];
 
   return (

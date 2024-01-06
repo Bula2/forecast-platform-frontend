@@ -92,7 +92,7 @@ export const VisualizationInfo = () => {
             />
           </Form.Item>
           <MyTooltip
-            title="Введите юнит - мера в которой будет измеряться значения данных (например: руб.)"
+            title="Введите юнит - мера в которой будут измеряться значения данных (например: руб.)"
             color="geekblue"
             placement="right"
           />
