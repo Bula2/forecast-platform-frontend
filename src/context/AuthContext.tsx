@@ -7,7 +7,7 @@ import {
   loginUserApi,
   registerUserApi,
   updateUserTokensApi,
-} from '../api/api';
+} from '../api';
 
 interface IAuthContext {
   user: IUser | null;

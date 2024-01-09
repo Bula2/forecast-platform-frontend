@@ -1,11 +1,9 @@
-import { Alert, Button, Divider, Form, Space, Typography, message } from 'antd';
+import { Alert, Button, Form, Space, Typography, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
-import axios from 'axios';
 import styles from './CreateForecast.module.scss';
 import { ICreateForecast } from '../../types/createForecastsTypes';
 import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
 import {
   CommonInfo,
   ForecastInfo,
@@ -13,11 +11,14 @@ import {
   VisualizationInfo,
 } from './modules';
 import { MyLoader } from '../../components/MyLoader/MyLoader';
+import { createForecastApi } from '../../api';
+import { AuthContext, ForecastContext } from '../../context';
 
 const { Title, Text } = Typography;
 
 export const CreateForecast = () => {
   const { user } = useContext(AuthContext);
+  const { createForecast } = useContext(ForecastContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
@@ -41,16 +42,12 @@ export const CreateForecast = () => {
     };
     setIsError(false);
     setIsLoading(true);
-    try {
-      await axios.post('http://127.0.0.1:8000/api/forecast/add/', requestData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+    const response = await createForecast(requestData);
+    if (response.type === 'success') {
       message.success(`Прогноз создан!`);
       setIsLoading(false);
       // navigate('/forecasts');
-    } catch (e: any) {
+    } else {
       setIsLoading(false);
       setIsError(true);
     }
