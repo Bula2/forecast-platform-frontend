@@ -23,7 +23,7 @@ export const CommonInfo = () => {
               className={styles.input}
               count={{
                 show: true,
-                max: 30,
+                max: 50,
               }}
             />
           </Form.Item>

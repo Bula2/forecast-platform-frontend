@@ -2,7 +2,7 @@ import { Alert, Button, Form, Space, Typography, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './CreateForecast.module.scss';
-import { ICreateForecast } from '../../types/createForecastsTypes';
+import { ICreateForecast } from '../../types/forecastsTypes';
 import { useContext, useState } from 'react';
 import {
   CommonInfo,
@@ -42,11 +42,12 @@ export const CreateForecast = () => {
     };
     setIsError(false);
     setIsLoading(true);
-    const response = await createForecast(requestData);
-    if (response.type === 'success') {
+    const responce = await createForecast(requestData);
+    if (responce.type === 'success') {
+      const result_id = responce?.value.result_id;
       message.success(`Прогноз создан!`);
       setIsLoading(false);
-      // navigate('/forecasts');
+      navigate(`/forecast/${result_id}`);
     } else {
       setIsLoading(false);
       setIsError(true);
@@ -79,7 +80,12 @@ export const CreateForecast = () => {
         <ForecastInfo />
         <VisualizationInfo />
         <Form.Item className={styles.buttonWrapper}>
-          <Button type="primary" htmlType="submit" size="large">
+          <Button
+            type="primary"
+            disabled={isLoading}
+            htmlType="submit"
+            size="large"
+          >
             {isLoading ? <MyLoader /> : 'Создать прогноз'}
           </Button>
         </Form.Item>

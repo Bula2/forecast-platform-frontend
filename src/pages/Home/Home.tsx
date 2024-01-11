@@ -1,5 +1,5 @@
+import React, { useContext } from 'react';
 import { Divider, List, Typography } from 'antd';
-import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
 
@@ -9,15 +9,7 @@ import { fastMenuItems } from './utils/constants';
 const { Title, Text, Paragraph } = Typography;
 
 export const Home = () => {
-  const { user, getNotes } = useContext(AuthContext);
-  // useEffect(() => {
-  //   getCurrentNotes();
-  // }, []);
-
-  // const getCurrentNotes = async () => {
-  //   const currentNotes = await getNotes();
-  //   setNotes(currentNotes);
-  // };
+  const { user } = useContext(AuthContext);
 
   return (
     <div>
@@ -45,7 +37,7 @@ export const Home = () => {
         size="large"
         header={
           <Text strong className={styles.menu__title}>
-            Быстрое меню
+            {'Быстрое меню'}
           </Text>
         }
         bordered

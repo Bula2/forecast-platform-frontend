@@ -44,6 +44,7 @@ export const updateUserTokensApi = async ({ refresh }: IUpdateUserTokensApi) =>
   });
 
 // Forecast requests
+
 interface ICreateForecastApi {
   file: any;
   title: string;
@@ -57,22 +58,47 @@ interface ICreateForecastApi {
   visualization_type: string;
   color: any;
   unit?: string;
+  access: string;
 }
 
 export const createForecastApi = async (requestData: ICreateForecastApi) =>
   await instance.post('forecast/add/', requestData, {
     headers: {
       'Content-Type': 'multipart/form-data',
+      Authorization: 'Bearer ' + String(requestData.access),
     },
   });
 
-// Тестовый
-interface IGetNotesApi {
+interface IGetAllForecastsApii {
+  user_id: number;
   access: string;
 }
 
-export const getNotesApi = async ({ access }: IGetNotesApi) =>
-  await instance.get('notes/', {
+export const getAllForecastsApi = async ({
+  user_id,
+  access,
+}: IGetAllForecastsApii) =>
+  await instance.get('forecast/get/all/', {
+    params: { user_id },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + String(access),
+    },
+  });
+
+interface IGetCurrentForecastApi {
+  user_id: number;
+  result_id: number;
+  access: string;
+}
+
+export const getCurrentForecastApi = async ({
+  user_id,
+  result_id,
+  access,
+}: IGetCurrentForecastApi) =>
+  await instance.get('forecast/get/current/', {
+    params: { user_id, result_id },
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + String(access),
