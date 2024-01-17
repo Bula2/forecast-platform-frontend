@@ -1,4 +1,41 @@
+@import '../../styles/vars.scss';
+
 .wrapper {
     padding: 0 30px;
     overflow: hidden;
+}
+
+.card {
+    min-height: 140px;
+    margin-bottom: 20px;
+    margin-right: 30px;
+    cursor: pointer;
+    transition: transform .1s ease-in-out;
+
+    &:hover {
+        transform: scale(1.008);
+    }
+
+    &__title {
+        color: $my-blue !important;
+        font-size: 17px;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    &__rigthBlock {
+        margin-top: -12px;
+        margin-right: 30px;
+    }
+
+    &__subtitle {
+        margin-top: -15px;
+        display: block;
+    }
 }

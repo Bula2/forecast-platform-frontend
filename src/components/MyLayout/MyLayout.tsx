@@ -41,7 +41,7 @@ interface IMyLayout {
 }
 
 export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
-  const location = useLocation(); //location.pathname
+  const location = useLocation();
   const media = useMediaQuery('(max-width: 680px)');
   const { user, logoutUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -52,7 +52,12 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
   useEffect(() => {
     if (location) {
       if (currentLocation !== location.pathname) {
-        setCurrentLocation(location.pathname);
+        console.log(location.pathname);
+        setCurrentLocation(
+          location.pathname.slice(0, 9) === '/forecast'
+            ? '/forecasts'
+            : location.pathname
+        );
       }
     }
   }, [location, currentLocation]);
@@ -111,6 +116,8 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
           }
     ),
   ];
+
+  console.log(currentLocation);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

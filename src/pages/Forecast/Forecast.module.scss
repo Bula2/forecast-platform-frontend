@@ -1,4 +1,13 @@
 .wrapper {
     padding: 0 30px;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttonBack {
+    width: 120px;
+    margin-top: 32px;
+    display: block;
 }

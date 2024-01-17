@@ -34,18 +34,18 @@ export const CommonInfo = () => {
           />
         </div>
         <div className={styles.wrapper_item}>
-          <Form.Item label="Подпись" name="subtitle">
+          <Form.Item label="Описание" name="subtitle">
             <Input
               size="middle"
               className={styles.input}
               count={{
                 show: true,
-                max: 150,
+                max: 200,
               }}
             />
           </Form.Item>
           <MyTooltip
-            title="Введите подпись прогноза, если это необходимо"
+            title="Введите описание прогноза, если это необходимо"
             color="geekblue"
             placement="right"
           />
