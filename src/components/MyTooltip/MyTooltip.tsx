@@ -21,6 +21,7 @@ export const MyTooltip: React.FC<IProps> = ({
 }) => {
   return (
     <Tooltip
+      className={styles.tooltip}
       title={title || ''}
       color={color || 'geekblue'}
       placement={(placement as any) || 'right'}

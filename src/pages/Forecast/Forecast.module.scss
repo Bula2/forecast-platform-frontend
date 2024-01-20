@@ -27,12 +27,36 @@
     }
 }
 
-.table {
-    width: 100%;
-    box-sizing: border-box;
-    box-shadow: -2px -2px 5px rgb(95, 94, 94);
+.tooltip {
+    min-width: 191px;
+    color: #002033;
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
 
-    &__forecast {
-        color: #31e831;
+    &__series {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__name {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 150%;
+        padding-right: 40px;
+    }
+
+    &__value {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 150%;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 17px;
     }
 }

@@ -1,0 +1,10 @@
+.table {
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: -2px -2px 5px rgb(95, 94, 94);
+    border-radius: 8px;
+
+    &__forecast {
+        color: #31e831;
+    }
+}

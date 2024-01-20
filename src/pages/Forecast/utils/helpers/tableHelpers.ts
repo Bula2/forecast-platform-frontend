@@ -18,11 +18,11 @@ export const getTableSource = ({
     ? [
         ...dimensions,
         ...forecast_measures.map(
-          (_, index) => `Период № ${dimensions.length + index + 1}`
+          (_, index) => `Период №${dimensions.length + index + 1}`
         ),
       ]
     : [...measures, ...forecast_measures].map(
-        (_, index) => `Период № ${index + 1}`
+        (_, index) => `Период №${index + 1}`
       );
 
   const currentMeasures = measures.map((item) => {

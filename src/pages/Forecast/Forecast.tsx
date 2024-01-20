@@ -1,32 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  Button,
-  Divider,
-  List,
-  Table,
-  TableProps,
-  Tag,
-  Typography,
-} from 'antd';
+import { Button, Typography } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './Forecast.module.scss';
 import { ForecastContext } from '../../context';
-import { DashletLayout } from '../../components/DashletLayout/DashletLayout';
-import { ReactECharts } from '../../components/ReactECharts/ReactECharts';
-import { getTableSource } from './utils/helpers';
-import { DataTableType } from './utils/types';
-import { CurrentForecast } from '../../types';
 import { MyLoader } from '../../components/MyLoader/MyLoader';
+import { ForecastDashlet, ForecastTable } from './components';
 
 const { Title, Text, Paragraph } = Typography;
 
 export const Forecast = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const { allForecasts, currentForecast, getCurrentForecast } =
-    useContext(ForecastContext);
+  const { currentForecast, getCurrentForecast } = useContext(ForecastContext);
 
   useEffect(() => {
     getCurrentForecast(Number(params.id));
@@ -34,84 +21,6 @@ export const Forecast = () => {
 
   const handleClickButtonBack = () => {
     navigate('/forecasts');
-  };
-
-  const dataTableSource = Object.keys(currentForecast).length
-    ? getTableSource({
-        dimensions: currentForecast.excel_dataset?.dimensions,
-        measures: currentForecast.excel_dataset.measures,
-        forecast_measures: currentForecast.arima_forecast.forecast_measures,
-      })
-    : [];
-
-  const columns: TableProps<DataTableType>['columns'] = [
-    {
-      title: 'ID',
-      dataIndex: 'key',
-      key: 'key',
-      sorter: (a, b) => a.key - b.key,
-    },
-    {
-      title: 'Период',
-      dataIndex: 'dataDimensions',
-      key: 'dataDimensions',
-      sorter: (a, b) => a.key - b.key,
-    },
-    {
-      title: 'Тип',
-      dataIndex: 'dataType',
-      key: 'dataType',
-      render: (item) => {
-        const color = item === 'Загруженное значение' ? '#1677FF' : '#31e831';
-        return (
-          <Tag color={color} key={item}>
-            {item.toUpperCase()}
-          </Tag>
-        );
-      },
-      filters: [
-        {
-          text: 'Загруженное значение',
-          value: 'Загруженное значение',
-        },
-        {
-          text: 'Спрогнозированное значение',
-          value: 'Спрогнозированное значение',
-        },
-      ],
-      onFilter: (value: any, record) => record.dataType.indexOf(value) === 0,
-    },
-
-    {
-      title: 'Значение',
-      dataIndex: 'dataMeasures',
-      key: 'dataMeasures',
-      render: (item) => (
-        <Text
-          strong
-          className={item.type === 'forecast' ? styles.table__forecast : ''}
-        >
-          {item.value}
-        </Text>
-      ),
-      sorter: (a, b) => a.dataMeasures.value - b.dataMeasures.value,
-    },
-  ];
-
-  const option = {
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: [150, 230, 224, 218, 135, 147, 260],
-        type: 'line',
-      },
-    ],
   };
 
   if (!Object.keys(currentForecast).length) {
@@ -140,18 +49,8 @@ export const Forecast = () => {
           {'Назад'}
         </Button>
       </div>
-      <DashletLayout>
-        <ReactECharts option={option} />
-      </DashletLayout>
-      <div className={styles.table}>
-        <Table
-          dataSource={dataTableSource}
-          columns={columns}
-          bordered={true}
-          scroll={{ x: 1200, y: 400 }}
-          pagination={false}
-        />
-      </div>
+      <ForecastDashlet currentForecast={currentForecast} />
+      <ForecastTable currentForecast={currentForecast} />
     </div>
   );
 };
