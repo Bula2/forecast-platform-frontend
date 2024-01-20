@@ -2,7 +2,7 @@ import { Alert, Button, Form, Space, Typography, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './CreateForecast.module.scss';
-import { ICreateForecast } from '../../types/forecastsTypes';
+import { CreateForecastType } from '../../types/forecastsTypes';
 import { useContext, useState } from 'react';
 import {
   CommonInfo,
@@ -23,7 +23,7 @@ export const CreateForecast = () => {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
 
-  const onFinish = async (values: ICreateForecast) => {
+  const onFinish = async (values: CreateForecastType) => {
     const requestData = {
       user_id: user?.user_id,
       file: values.file[0].originFileObj,

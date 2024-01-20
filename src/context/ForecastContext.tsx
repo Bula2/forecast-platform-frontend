@@ -1,9 +1,9 @@
 import { createContext, useState, useContext } from 'react';
 import {
-  IAllForecasts,
-  ICreateForecast,
-  ICurrentForecast,
-  IResponceAnswerType,
+  AllForecasts,
+  CreateForecastType,
+  CurrentForecast,
+  ResponceAnswerType,
 } from '../types';
 import {
   createForecastApi,
@@ -13,28 +13,28 @@ import {
 import { AuthContext } from './AuthContext';
 
 interface IForecastContext {
-  allForecasts: IAllForecasts[];
-  currentForecast: ICurrentForecast;
+  allForecasts: AllForecasts[];
+  currentForecast: CurrentForecast;
   createForecast: (
-    requestData: ICreateForecast
-  ) => Promise<IResponceAnswerType>;
-  getAllForecasts: () => Promise<IResponceAnswerType>;
-  getCurrentForecast: (result_id: number) => Promise<IResponceAnswerType>;
+    requestData: CreateForecastType
+  ) => Promise<ResponceAnswerType>;
+  getAllForecasts: () => Promise<ResponceAnswerType>;
+  getCurrentForecast: (result_id: number) => Promise<ResponceAnswerType>;
 }
 
 export const ForecastContext = createContext({} as IForecastContext);
 
 export const ForecastProvider = ({ children }: any) => {
-  const { user } = useContext(AuthContext);
+  const { user, logoutUser } = useContext(AuthContext);
 
   const localStorageUserValue = JSON.parse(localStorage.getItem('authTokens')!);
 
-  const [allForecasts, setAllForecasts] = useState<IAllForecasts[]>([]);
-  const [currentForecast, setCurrentForecast] = useState<ICurrentForecast>(
-    {} as ICurrentForecast
+  const [allForecasts, setAllForecasts] = useState<AllForecasts[]>([]);
+  const [currentForecast, setCurrentForecast] = useState<CurrentForecast>(
+    {} as CurrentForecast
   );
 
-  const createForecast = async (requestData: ICreateForecast) => {
+  const createForecast = async (requestData: CreateForecastType) => {
     try {
       const responce = await createForecastApi({
         ...requestData,
@@ -42,6 +42,7 @@ export const ForecastProvider = ({ children }: any) => {
       });
       return { type: 'success', value: responce.data };
     } catch (e) {
+      logoutUser();
       return { type: 'error' };
     }
   };
@@ -55,6 +56,7 @@ export const ForecastProvider = ({ children }: any) => {
       setAllForecasts(responce.data);
       return { type: 'success' };
     } catch (e) {
+      logoutUser();
       return { type: 'error' };
     }
   };
@@ -69,6 +71,7 @@ export const ForecastProvider = ({ children }: any) => {
       setCurrentForecast(responce.data[0]);
       return { type: 'success' };
     } catch (e) {
+      logoutUser();
       return { type: 'error' };
     }
   };

@@ -1,15 +1,15 @@
-export interface IAuthUser {
+export interface AuthUser {
   email: string;
   password: string;
 }
 
-export interface IRegisterUser {
+export interface RegisterUser {
   name?: string;
   email: string;
   password: string;
 }
 
-export interface IUser {
+export interface User {
   email: string;
   first_name: string;
   token_type: string;

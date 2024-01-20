@@ -1,13 +1,13 @@
 import { createContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { IAuthUser, IRegisterUser, IUser, IResponceAnswerType } from '../types';
+import { AuthUser, RegisterUser, User, ResponceAnswerType } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { loginUserApi, registerUserApi, updateUserTokensApi } from '../api';
 
 interface IAuthContext {
-  user: IUser | null;
-  loginUser: (values: IAuthUser) => Promise<IResponceAnswerType>;
-  registerUser: (values: IRegisterUser) => Promise<IResponceAnswerType>;
+  user: User | null;
+  loginUser: (values: AuthUser) => Promise<ResponceAnswerType>;
+  registerUser: (values: RegisterUser) => Promise<ResponceAnswerType>;
   logoutUser: () => void;
 }
 
@@ -21,13 +21,13 @@ export const AuthProvider = ({ children }: any) => {
   const [authTokens, setAuthTokens] = useState(() =>
     localStorageUserValue ? localStorageUserValue : null
   );
-  const [user, setUser] = useState<IUser | null>(() =>
+  const [user, setUser] = useState<User | null>(() =>
     localStorageUserValue
       ? jwtDecode(localStorageUserValue.access as string)
       : null
   );
 
-  const loginUser = async (values: IAuthUser) => {
+  const loginUser = async (values: AuthUser) => {
     try {
       const responce = await loginUserApi({
         username: values.email,
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  const registerUser = async (values: IRegisterUser) => {
+  const registerUser = async (values: RegisterUser) => {
     try {
       await registerUserApi({
         name: values?.name,

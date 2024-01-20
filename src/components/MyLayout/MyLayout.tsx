@@ -52,7 +52,6 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
   useEffect(() => {
     if (location) {
       if (currentLocation !== location.pathname) {
-        console.log(location.pathname);
         setCurrentLocation(
           location.pathname.slice(0, 9) === '/forecast'
             ? '/forecasts'
@@ -116,8 +115,6 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
           }
     ),
   ];
-
-  console.log(currentLocation);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

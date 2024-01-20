@@ -6,7 +6,7 @@ import { MyLoader } from '../../components/MyLoader/MyLoader';
 import { Link } from 'react-router-dom';
 
 import styles from './Registration.module.scss';
-import { IRegisterUser } from '../../types';
+import { RegisterUser } from '../../types';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -22,7 +22,7 @@ export const Registration = () => {
   const { registerUser } = useContext(AuthContext);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const onFinish = async (values: IRegisterUser) => {
+  const onFinish = async (values: RegisterUser) => {
     setIsError(false);
     setIsLoading(true);
     const answer = await registerUser(values);

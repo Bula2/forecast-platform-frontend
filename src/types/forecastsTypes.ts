@@ -1,4 +1,4 @@
-export interface ICreateForecast {
+export interface CreateForecastType {
   file: any;
   title: string;
   subtitle?: string;
@@ -13,7 +13,7 @@ export interface ICreateForecast {
   unit?: string;
 }
 
-export interface IAllForecasts {
+export interface AllForecasts {
   result_id: string;
   title: string;
   subtitle: string;
@@ -23,7 +23,7 @@ export interface IAllForecasts {
   visualization: string;
 }
 
-export interface ICurrentForecast {
+export interface CurrentForecast {
   result_id: number;
   excel_dataset: {
     excel_dataset_id: number;

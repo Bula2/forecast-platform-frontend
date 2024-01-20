@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './MyForectasts.module.scss';
 import { ForecastContext } from '../../context';
-import { IAllForecasts } from '../../types';
+import { AllForecasts } from '../../types';
 
 const { Title, Text, Paragraph } = Typography;
 

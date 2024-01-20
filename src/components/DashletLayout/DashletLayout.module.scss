@@ -1,0 +1,20 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  box-shadow: -2px 2px 5px rgb(95, 94, 94);
+  border-radius: 8px;
+  margin: 20px 0;
+
+  &__chart {
+    height: 600px;
+  }
+
+  &__chartModal {
+    height: 100%;
+  }
+}

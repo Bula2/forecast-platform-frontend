@@ -1,13 +1,38 @@
 .wrapper {
     padding: 0 30px;
     overflow: hidden;
+}
+
+.loading {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    &__title {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__button {
+        width: 120px;
+        margin-top: 32px;
+        display: block;
+    }
 }
 
-.buttonBack {
-    width: 120px;
-    margin-top: 32px;
-    display: block;
+.table {
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: -2px -2px 5px rgb(95, 94, 94);
+
+    &__forecast {
+        color: #31e831;
+    }
 }

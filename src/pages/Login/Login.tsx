@@ -15,7 +15,7 @@ import { MyLoader } from '../../components/MyLoader/MyLoader';
 import { Link } from 'react-router-dom';
 
 import styles from './Login.module.scss';
-import { IAuthUser } from '../../types';
+import { AuthUser } from '../../types';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
@@ -32,7 +32,7 @@ export const Login: React.FC = () => {
   const [isError, setIsError] = useState(false);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const onFinish = async (values: IAuthUser) => {
+  const onFinish = async (values: AuthUser) => {
     setIsError(false);
     setIsLoading(true);
     const answer = await loginUser({
