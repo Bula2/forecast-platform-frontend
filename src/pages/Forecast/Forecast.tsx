@@ -49,11 +49,13 @@ export const Forecast = () => {
       title: 'ID',
       dataIndex: 'key',
       key: 'key',
+      sorter: (a, b) => a.key - b.key,
     },
     {
-      title: 'Дата',
+      title: 'Период',
       dataIndex: 'dataDimensions',
       key: 'dataDimensions',
+      sorter: (a, b) => a.key - b.key,
     },
     {
       title: 'Тип',
@@ -67,6 +69,17 @@ export const Forecast = () => {
           </Tag>
         );
       },
+      filters: [
+        {
+          text: 'Загруженное значение',
+          value: 'Загруженное значение',
+        },
+        {
+          text: 'Спрогнозированное значение',
+          value: 'Спрогнозированное значение',
+        },
+      ],
+      onFilter: (value: any, record) => record.dataType.indexOf(value) === 0,
     },
 
     {
@@ -81,6 +94,7 @@ export const Forecast = () => {
           {item.value}
         </Text>
       ),
+      sorter: (a, b) => a.dataMeasures.value - b.dataMeasures.value,
     },
   ];
 
