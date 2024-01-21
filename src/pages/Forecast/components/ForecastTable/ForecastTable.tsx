@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CurrentForecast } from '../../../../types';
-import { Table, TableProps, Tag, Typography } from 'antd';
+import { Button, Modal, Table, TableProps, Tag, Typography } from 'antd';
 
 import styles from './ForecastTable.module.scss';
 import { getTableSource } from '../../utils/helpers';
 import { DataTableType } from '../../utils/types';
+import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
 
 interface Props {
   currentForecast: CurrentForecast;
@@ -13,6 +14,15 @@ interface Props {
 const { Title, Text, Paragraph } = Typography;
 
 export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   const dataTableSource = Object.keys(currentForecast).length
     ? getTableSource({
         dimensions: currentForecast.excel_dataset?.dimensions,
@@ -77,6 +87,13 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
 
   return (
     <div className={styles.table}>
+      <div className={styles.header}>
+        <Button
+          shape="circle"
+          icon={<FullscreenOutlined />}
+          onClick={showModal}
+        />
+      </div>
       <Table
         dataSource={dataTableSource}
         columns={columns}
@@ -84,6 +101,23 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
         scroll={{ x: 1200, y: 400 }}
         pagination={false}
       />
+      <Modal
+        title={currentForecast.title}
+        open={isModalOpen}
+        onCancel={handleCancel}
+        closeIcon={<FullscreenExitOutlined />}
+        centered
+        width={'80%'}
+        footer={null}
+      >
+        <Table
+          dataSource={dataTableSource}
+          columns={columns}
+          bordered={true}
+          scroll={{ x: 1200, y: 700 }}
+          pagination={false}
+        />
+      </Modal>
     </div>
   );
 };

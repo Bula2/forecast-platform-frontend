@@ -1,23 +1,27 @@
 import { ICommonChartParams } from '../../../../types/chartParamsTypes';
 import styles from '../../Forecast.module.scss';
 
-interface GetLineChartOptions {
+interface GetChartOptions {
   dimensions?: string[];
   measures: number[];
   forecast_measures: number[];
   color: string;
   unit?: string;
   isLegendClicked: boolean;
+  type: 'barchart' | 'linechart' | 'scatterchart' | 'areachart';
+  isModalOpen: boolean;
 }
 
-export const getLineChartOptions = ({
+export const getChartOptions = ({
   dimensions,
   measures,
   forecast_measures,
   color,
   unit,
   isLegendClicked,
-}: GetLineChartOptions) => {
+  type,
+  isModalOpen,
+}: GetChartOptions) => {
   const chartDimensions = dimensions
     ? [
         ...dimensions,
@@ -30,6 +34,107 @@ export const getLineChartOptions = ({
       );
 
   const nullArray = measures.map((_) => null);
+
+  const series =
+    type === 'linechart'
+      ? [
+          {
+            name: 'Загруженные данные',
+            color: color,
+            type: 'line',
+            smooth: true,
+            data: isLegendClicked
+              ? measures
+              : [...measures, forecast_measures[0]],
+          },
+          {
+            name: 'Спрогнозированные данные',
+            color: '#31e831',
+            type: 'line',
+            smooth: true,
+            data: [...nullArray, ...forecast_measures],
+          },
+        ]
+      : type === 'barchart'
+      ? [
+          {
+            name: 'Загруженные данные',
+            color: color,
+            type: 'bar',
+            data: measures,
+            stack: 'main',
+            label: {
+              show: true,
+              position: 'inside',
+              rotate: 90,
+              formatter(params: ICommonChartParams) {
+                return `${params.value} ${unit || ''}`;
+              },
+              fontStyle: 'normal',
+              fontSize: 12,
+              fontWeight: 400,
+            },
+            barMaxWidth: 47,
+          },
+          {
+            name: 'Спрогнозированные данные',
+            color: '#31e831',
+            type: 'bar',
+            data: [...nullArray, ...forecast_measures],
+            stack: 'main',
+            label: {
+              show: true,
+              position: 'inside',
+              rotate: 90,
+              formatter(params: ICommonChartParams) {
+                return `${params.value} ${unit || ''}`;
+              },
+              fontStyle: 'normal',
+              fontSize: 12,
+              fontWeight: 400,
+            },
+            barMaxWidth: 47,
+          },
+        ]
+      : type === 'scatterchart'
+      ? [
+          {
+            name: 'Загруженные данные',
+            color: color,
+            type: 'scatter',
+            symbolSize: 10,
+            data: isLegendClicked
+              ? measures
+              : [...measures, forecast_measures[0]],
+          },
+          {
+            name: 'Спрогнозированные данные',
+            color: '#31e831',
+            type: 'scatter',
+            symbolSize: 10,
+            data: [...nullArray, ...forecast_measures],
+          },
+        ]
+      : type === 'areachart'
+      ? [
+          {
+            name: 'Загруженные данные',
+            color: color,
+            type: 'line',
+            areaStyle: {},
+            data: isLegendClicked
+              ? measures
+              : [...measures, forecast_measures[0]],
+          },
+          {
+            name: 'Спрогнозированные данные',
+            color: '#31e831',
+            type: 'line',
+            areaStyle: {},
+            data: [...nullArray, ...forecast_measures],
+          },
+        ]
+      : [];
 
   return {
     tooltip: {
@@ -80,7 +185,7 @@ export const getLineChartOptions = ({
       show: true,
       data: ['Загруженные данные', 'Спрогнозированные данные'],
       icon: 'circle',
-      bottom: 15,
+      bottom: '8%',
       itemGap: 30,
       lineStyle: {
         opacity: 0,
@@ -95,7 +200,7 @@ export const getLineChartOptions = ({
     grid: {
       left: '5%',
       right: '5%',
-      bottom: '15%',
+      bottom: '20%',
       height: '75%',
       containLabel: true,
     },
@@ -133,7 +238,7 @@ export const getLineChartOptions = ({
     yAxis: [
       {
         type: 'value',
-        offset: 27,
+        offset: 35,
         axisLabel: {
           show: true,
           color: 'black',
@@ -167,24 +272,10 @@ export const getLineChartOptions = ({
       },
       {
         type: 'slider',
-        bottom: '10%',
+        bottom: '15%',
         height: 24,
       },
     ],
-    series: [
-      {
-        name: 'Загруженные данные',
-        type: 'line',
-        smooth: true,
-        data: isLegendClicked ? measures : [...measures, forecast_measures[0]],
-        color: color,
-      },
-      {
-        name: 'Спрогнозированные данные',
-        color: '#31e831',
-        type: 'line',
-        data: [...nullArray, ...forecast_measures],
-      },
-    ],
+    series,
   };
 };

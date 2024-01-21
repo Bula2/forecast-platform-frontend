@@ -7,7 +7,9 @@ import {
 import { CurrentForecast } from '../../../../types';
 
 import styles from './ForecastDashlet.module.scss';
-import { getLineChartOptions } from '../../utils/helpers/dashletHelpers';
+import { getChartOptions } from '../../utils/helpers/dashletHelpers';
+import { Button, Modal, Radio, RadioChangeEvent } from 'antd';
+import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
 
 interface Props {
   currentForecast: CurrentForecast;
@@ -15,14 +17,33 @@ interface Props {
 
 export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
   const [isLegendClicked, setIsLegendClicked] = useState(false);
+  const [radioButtonValue, setRadioButtonValue] = useState(
+    currentForecast.visualization.visualization_type || 'linechart'
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const onRadioChange = (e: RadioChangeEvent) => {
+    setRadioButtonValue(e.target.value);
+  };
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const option = Object.keys(currentForecast).length
-    ? getLineChartOptions({
+    ? getChartOptions({
         dimensions: currentForecast.excel_dataset?.dimensions,
         measures: currentForecast.excel_dataset.measures,
         forecast_measures: currentForecast.arima_forecast.forecast_measures,
         color: currentForecast.visualization.color,
         unit: currentForecast.visualization?.unit,
         isLegendClicked,
+        type: radioButtonValue,
+        isModalOpen,
       })
     : {};
 
@@ -35,8 +56,67 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
     },
   };
   return (
-    <DashletLayout>
+    <DashletLayout isModalOpen={isModalOpen}>
+      <div className={styles.header}>
+        <Radio.Group
+          onChange={onRadioChange}
+          value={radioButtonValue}
+          size="small"
+        >
+          <Radio.Button value={'linechart'}>
+            {'Линейная диаграмма'}
+          </Radio.Button>
+          <Radio.Button value={'barchart'}>
+            {'Столбчатая диаграмма'}
+          </Radio.Button>
+          <Radio.Button value={'scatterchart'}>
+            {'Точечная диаграмма'}
+          </Radio.Button>
+          <Radio.Button value={'areachart'}>
+            {'Диаграмма с областями'}
+          </Radio.Button>
+        </Radio.Group>
+        <Button
+          shape="circle"
+          icon={<FullscreenOutlined />}
+          onClick={showModal}
+        />
+      </div>
       <ReactECharts option={option} onEvents={onEvents} />
+      <Modal
+        title={currentForecast.title}
+        open={isModalOpen}
+        onCancel={handleCancel}
+        closeIcon={<FullscreenExitOutlined />}
+        centered
+        width={'80%'}
+        footer={null}
+      >
+        <DashletLayout isModalOpen={isModalOpen}>
+          <div className={styles.header}>
+            <Radio.Group
+              onChange={onRadioChange}
+              value={radioButtonValue}
+              className={styles.radio}
+              size="small"
+            >
+              <Radio.Button value={'linechart'}>
+                {'Линейная диаграмма'}
+              </Radio.Button>
+              <Radio.Button value={'barchart'}>
+                {'Столбчатая диаграмма'}
+              </Radio.Button>
+              <Radio.Button value={'scatterchart'}>
+                {'Точечная диаграмма'}
+              </Radio.Button>
+              <Radio.Button value={'areachart'}>
+                {'Диаграмма с областями'}
+              </Radio.Button>
+            </Radio.Group>
+          </div>
+          <ReactECharts option={option} onEvents={onEvents} />
+        </DashletLayout>
+      </Modal>
     </DashletLayout>
   );
 };

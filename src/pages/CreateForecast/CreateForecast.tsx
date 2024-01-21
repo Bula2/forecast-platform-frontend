@@ -65,7 +65,7 @@ export const CreateForecast = () => {
         ['d_value']: 0,
         ['q_value']: 0,
         ['n_count']: 3,
-        ['visualization_type']: 'barchart',
+        ['visualization_type']: 'linechart',
         ['color']: '#2b6ac2',
       }}
     >
