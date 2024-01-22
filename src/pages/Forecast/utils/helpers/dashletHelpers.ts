@@ -43,6 +43,7 @@ export const getChartOptions = ({
             color: color,
             type: 'line',
             smooth: true,
+            areaStyle: null,
             data: isLegendClicked
               ? measures
               : [...measures, forecast_measures[0]],
@@ -52,6 +53,7 @@ export const getChartOptions = ({
             color: '#31e831',
             type: 'line',
             smooth: true,
+            areaStyle: null,
             data: [...nullArray, ...forecast_measures],
           },
         ]
@@ -103,9 +105,7 @@ export const getChartOptions = ({
             color: color,
             type: 'scatter',
             symbolSize: 10,
-            data: isLegendClicked
-              ? measures
-              : [...measures, forecast_measures[0]],
+            data: isLegendClicked ? measures : [...measures],
           },
           {
             name: 'Спрогнозированные данные',

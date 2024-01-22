@@ -1,11 +1,23 @@
 import React, { useState } from 'react';
 import { CurrentForecast } from '../../../../types';
-import { Button, Modal, Table, TableProps, Tag, Typography } from 'antd';
+import {
+  Button,
+  Modal,
+  Table,
+  TableProps,
+  Tag,
+  Tooltip,
+  Typography,
+} from 'antd';
 
 import styles from './ForecastTable.module.scss';
 import { getTableSource } from '../../utils/helpers';
 import { DataTableType } from '../../utils/types';
-import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
+import {
+  FullscreenOutlined,
+  FullscreenExitOutlined,
+  DownloadOutlined,
+} from '@ant-design/icons';
 
 interface Props {
   currentForecast: CurrentForecast;
@@ -88,11 +100,22 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
   return (
     <div className={styles.table}>
       <div className={styles.header}>
-        <Button
-          shape="circle"
-          icon={<FullscreenOutlined />}
-          onClick={showModal}
-        />
+        <div className={styles.header__buttons}>
+          <Tooltip title="Скачать xlsx">
+            <Button
+              shape="circle"
+              icon={<DownloadOutlined />}
+              onClick={() => ({})}
+            />
+          </Tooltip>
+          <Tooltip title="Раскрыть">
+            <Button
+              shape="circle"
+              icon={<FullscreenOutlined />}
+              onClick={showModal}
+            />
+          </Tooltip>
+        </div>
       </div>
       <Table
         dataSource={dataTableSource}
@@ -105,7 +128,11 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
         title={currentForecast.title}
         open={isModalOpen}
         onCancel={handleCancel}
-        closeIcon={<FullscreenExitOutlined />}
+        closeIcon={
+          <Tooltip title="Свернуть">
+            <FullscreenExitOutlined />
+          </Tooltip>
+        }
         centered
         width={'80%'}
         footer={null}

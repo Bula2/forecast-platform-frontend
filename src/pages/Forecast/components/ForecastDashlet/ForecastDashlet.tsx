@@ -8,8 +8,12 @@ import { CurrentForecast } from '../../../../types';
 
 import styles from './ForecastDashlet.module.scss';
 import { getChartOptions } from '../../utils/helpers/dashletHelpers';
-import { Button, Modal, Radio, RadioChangeEvent } from 'antd';
-import { FullscreenOutlined, FullscreenExitOutlined } from '@ant-design/icons';
+import { Button, Modal, Radio, RadioChangeEvent, Tooltip } from 'antd';
+import {
+  FullscreenOutlined,
+  FullscreenExitOutlined,
+  DownloadOutlined,
+} from '@ant-design/icons';
 
 interface Props {
   currentForecast: CurrentForecast;
@@ -76,18 +80,33 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
             {'Диаграмма с областями'}
           </Radio.Button>
         </Radio.Group>
-        <Button
-          shape="circle"
-          icon={<FullscreenOutlined />}
-          onClick={showModal}
-        />
+        <div className={styles.header__buttons}>
+          <Tooltip title="Скачать png">
+            <Button
+              shape="circle"
+              icon={<DownloadOutlined />}
+              onClick={() => ({})}
+            />
+          </Tooltip>
+          <Tooltip title="Раскрыть">
+            <Button
+              shape="circle"
+              icon={<FullscreenOutlined />}
+              onClick={showModal}
+            />
+          </Tooltip>
+        </div>
       </div>
       <ReactECharts option={option} onEvents={onEvents} />
       <Modal
         title={currentForecast.title}
         open={isModalOpen}
         onCancel={handleCancel}
-        closeIcon={<FullscreenExitOutlined />}
+        closeIcon={
+          <Tooltip title="Свернуть">
+            <FullscreenExitOutlined />
+          </Tooltip>
+        }
         centered
         width={'80%'}
         footer={null}
