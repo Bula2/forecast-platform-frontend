@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { DashletLayout } from '../../../../components/DashletLayout/DashletLayout';
 import {
   ILegendselectchangedParams,
@@ -14,6 +14,7 @@ import {
   FullscreenExitOutlined,
   DownloadOutlined,
 } from '@ant-design/icons';
+import { downloadPng } from '../../utils/helpers';
 
 interface Props {
   currentForecast: CurrentForecast;
@@ -25,6 +26,9 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
     currentForecast.visualization.visualization_type || 'linechart'
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const refDashlet = useRef<HTMLDivElement>(null);
 
   const onRadioChange = (e: RadioChangeEvent) => {
     setRadioButtonValue(e.target.value);
@@ -60,7 +64,7 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
     },
   };
   return (
-    <DashletLayout isModalOpen={isModalOpen}>
+    <DashletLayout isModalOpen={isModalOpen} refDashlet={refDashlet}>
       <div className={styles.header}>
         <Radio.Group
           onChange={onRadioChange}
@@ -85,7 +89,8 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
             <Button
               shape="circle"
               icon={<DownloadOutlined />}
-              onClick={() => ({})}
+              onClick={() => downloadPng({ ref: refDashlet, setIsLoading })}
+              loading={isLoading}
             />
           </Tooltip>
           <Tooltip title="Раскрыть">
