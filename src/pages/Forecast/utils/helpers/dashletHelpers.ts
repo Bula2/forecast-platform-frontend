@@ -10,6 +10,7 @@ interface GetChartOptions {
   isLegendClicked: boolean;
   type: 'barchart' | 'linechart' | 'scatterchart' | 'areachart';
   isModalOpen: boolean;
+  isShowLables: boolean;
 }
 
 export const getChartOptions = ({
@@ -21,6 +22,7 @@ export const getChartOptions = ({
   isLegendClicked,
   type,
   isModalOpen,
+  isShowLables,
 }: GetChartOptions) => {
   const chartDimensions = dimensions
     ? [
@@ -66,15 +68,16 @@ export const getChartOptions = ({
             data: measures,
             stack: 'main',
             label: {
-              show: true,
+              show: isShowLables,
               position: 'inside',
               rotate: 90,
               formatter(params: ICommonChartParams) {
-                return `${params.value} ${unit || ''}`;
+                return `${params.value.toFixed(2)} ${unit || ''}`;
               },
+              fontFamily: 'Open Sans',
               fontStyle: 'normal',
-              fontSize: 12,
-              fontWeight: 400,
+              fontSize: 14,
+              fontWeight: 600,
             },
             barMaxWidth: 47,
           },
@@ -85,15 +88,16 @@ export const getChartOptions = ({
             data: [...nullArray, ...forecast_measures],
             stack: 'main',
             label: {
-              show: true,
+              show: isShowLables,
               position: 'inside',
               rotate: 90,
               formatter(params: ICommonChartParams) {
-                return `${params.value} ${unit || ''}`;
+                return `${params.value.toFixed(2)} ${unit || ''}`;
               },
+              fontFamily: 'Open Sans',
               fontStyle: 'normal',
-              fontSize: 12,
-              fontWeight: 400,
+              fontSize: 14,
+              fontWeight: 600,
             },
             barMaxWidth: 47,
           },
@@ -191,7 +195,8 @@ export const getChartOptions = ({
         opacity: 0,
       },
       textStyle: {
-        color: 'black',
+        fontFamily: 'Open Sans',
+        color: '#002033',
         fontStyle: 'normal',
         fontWeight: 400,
         fontSize: 14,
@@ -223,7 +228,8 @@ export const getChartOptions = ({
       },
       axisLabel: {
         show: true,
-        color: 'black',
+        fontFamily: 'Open Sans',
+        color: '#002033',
         fontStyle: 'normal',
         fontWeight: 400,
         fontSize: 12,
@@ -240,8 +246,9 @@ export const getChartOptions = ({
         type: 'value',
         offset: 35,
         axisLabel: {
+          fontFamily: 'Open Sans',
           show: true,
-          color: 'black',
+          color: '#002033',
           fontStyle: 'normal',
           fontWeight: 400,
           fontSize: 12,
@@ -249,13 +256,13 @@ export const getChartOptions = ({
         axisLine: {
           show: true,
           lineStyle: {
-            color: 'black',
+            color: '#002033',
           },
         },
         axisTick: {
           show: true,
           lineStyle: {
-            color: 'black',
+            color: '#002033',
           },
         },
         splitLine: {

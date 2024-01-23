@@ -49,8 +49,10 @@ export const Forecast = () => {
           {'Назад'}
         </Button>
       </div>
-      <ForecastDashlet currentForecast={currentForecast} />
-      <ForecastTable currentForecast={currentForecast} />
+      <div className={styles.items}>
+        <ForecastDashlet currentForecast={currentForecast} />
+        <ForecastTable currentForecast={currentForecast} />
+      </div>
     </div>
   );
 };

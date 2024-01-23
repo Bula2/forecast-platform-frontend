@@ -11,7 +11,7 @@ import {
 } from 'antd';
 
 import styles from './ForecastTable.module.scss';
-import { getTableSource } from '../../utils/helpers';
+import { downloadExcel, getTableSource } from '../../utils/helpers';
 import { DataTableType } from '../../utils/types';
 import {
   FullscreenOutlined,
@@ -105,7 +105,7 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
             <Button
               shape="circle"
               icon={<DownloadOutlined />}
-              onClick={() => ({})}
+              onClick={() => downloadExcel({ dataForExcel: dataTableSource })}
             />
           </Tooltip>
           <Tooltip title="Раскрыть">

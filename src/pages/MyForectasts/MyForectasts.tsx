@@ -24,8 +24,8 @@ export const MyForectasts = () => {
     <div className={styles.wrapper}>
       <Title level={3}>{'Мои прогнозы'}</Title>
       <Row>
-        {allForecasts.map((item) => (
-          <Col span={12}>
+        {allForecasts.map((item, index) => (
+          <Col key={index} span={12}>
             <Card
               className={styles.card}
               title={

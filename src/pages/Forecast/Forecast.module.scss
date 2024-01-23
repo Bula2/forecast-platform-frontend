@@ -27,6 +27,14 @@
     }
 }
 
+.items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 20px;
+}
+
 .tooltip {
     min-width: 191px;
     color: #002033;
@@ -43,20 +51,20 @@
 
     &__name {
         font-weight: 400;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 150%;
         padding-right: 40px;
     }
 
     &__value {
         font-weight: 700;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 150%;
     }
 
     &__title {
         font-weight: 700;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 17px;
     }
 }

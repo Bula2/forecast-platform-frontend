@@ -6,15 +6,22 @@ import {
 } from '../../../../components/ReactECharts/ReactECharts';
 import { CurrentForecast } from '../../../../types';
 
-import styles from './ForecastDashlet.module.scss';
-import { getChartOptions } from '../../utils/helpers/dashletHelpers';
-import { Button, Modal, Radio, RadioChangeEvent, Tooltip } from 'antd';
+import {
+  Button,
+  Checkbox,
+  Modal,
+  Radio,
+  RadioChangeEvent,
+  Tooltip,
+} from 'antd';
 import {
   FullscreenOutlined,
   FullscreenExitOutlined,
   DownloadOutlined,
 } from '@ant-design/icons';
-import { downloadPng } from '../../utils/helpers';
+import { downloadPng, getChartOptions } from '../../utils/helpers';
+
+import styles from './ForecastDashlet.module.scss';
 
 interface Props {
   currentForecast: CurrentForecast;
@@ -23,12 +30,15 @@ interface Props {
 export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
   const [isLegendClicked, setIsLegendClicked] = useState(false);
   const [radioButtonValue, setRadioButtonValue] = useState(
-    currentForecast.visualization.visualization_type || 'linechart'
+    currentForecast.visualization.visualization_type
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowLables, setIsShowLabels] = useState(false);
 
   const refDashlet = useRef<HTMLDivElement>(null);
+
+  const onShowLabelsClick = () => setIsShowLabels(!isShowLables);
 
   const onRadioChange = (e: RadioChangeEvent) => {
     setRadioButtonValue(e.target.value);
@@ -52,6 +62,7 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
         isLegendClicked,
         type: radioButtonValue,
         isModalOpen,
+        isShowLables,
       })
     : {};
 
@@ -85,6 +96,11 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
           </Radio.Button>
         </Radio.Group>
         <div className={styles.header__buttons}>
+          {radioButtonValue === 'barchart' && (
+            <Checkbox onChange={onShowLabelsClick}>
+              {'Показать подписи'}
+            </Checkbox>
+          )}
           <Tooltip title="Скачать png">
             <Button
               shape="circle"
@@ -137,6 +153,13 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
                 {'Диаграмма с областями'}
               </Radio.Button>
             </Radio.Group>
+            <div className={styles.header__buttons}>
+              {radioButtonValue === 'barchart' && (
+                <Checkbox onChange={onShowLabelsClick}>
+                  {'Показать подписи'}
+                </Checkbox>
+              )}
+            </div>
           </div>
           <ReactECharts option={option} onEvents={onEvents} />
         </DashletLayout>
