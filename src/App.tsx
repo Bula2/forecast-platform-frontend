@@ -11,6 +11,7 @@ import {
   MyForectasts,
   Forecast,
   Page404,
+  Contacts,
 } from './pages';
 import { MyLayout } from './components/MyLayout/MyLayout';
 import { PrivateRoute } from './utils/components/PrivateRoute';
@@ -60,6 +61,16 @@ function App() {
                   <PrivateRoute>
                     <MyLayout>
                       <Settings />
+                    </MyLayout>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/contacts"
+                element={
+                  <PrivateRoute>
+                    <MyLayout>
+                      <Contacts />
                     </MyLayout>
                   </PrivateRoute>
                 }

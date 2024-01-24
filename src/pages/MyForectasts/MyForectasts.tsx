@@ -24,6 +24,11 @@ export const MyForectasts = () => {
     <div className={styles.wrapper}>
       <Title level={3}>{'Мои прогнозы'}</Title>
       <Row>
+        {allForecasts.length === 0 && (
+          <div className={styles.noForecasts}>
+            <Title level={4}>{'Ни одного прогноза не создано('}</Title>
+          </div>
+        )}
         {allForecasts.map((item, index) => (
           <Col key={index} span={12}>
             <Card
@@ -40,7 +45,7 @@ export const MyForectasts = () => {
                 <div className={styles.content__leftBlock}>
                   <Text className={styles.content__subtitle}>
                     <Text strong>{'Описание: '}</Text>
-                    {item.subtitle ?? '-'}
+                    {item.subtitle ?? 'Нету'}
                   </Text>
                 </div>
                 <div className={styles.content__rigthBlock}>

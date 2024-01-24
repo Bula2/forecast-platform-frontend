@@ -1,6 +1,6 @@
-import { IFastMenuItems } from '../types';
+import { FastMenuItems } from '../types';
 
-export const fastMenuItems: IFastMenuItems[] = [
+export const fastMenuItems: FastMenuItems[] = [
   {
     link: '/create',
     text: 'Создать прогноз',

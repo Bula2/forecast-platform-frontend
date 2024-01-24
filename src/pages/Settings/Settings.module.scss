@@ -2,3 +2,29 @@
     padding: 0 30px;
     overflow: hidden;
 }
+
+.content {
+    margin-top: 30px;
+
+    &__item {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 25px;
+    }
+
+    &__label {
+        font-size: 16px;
+    }
+
+    &__input {
+        width: 200px;
+        background: #fff !important;
+        color: black !important;
+    }
+
+    &__editButton {
+        margin-left: -27px;
+    }
+}

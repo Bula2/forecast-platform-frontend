@@ -97,6 +97,11 @@ export const MyLayout: React.FC<IMyLayout> = ({ children }) => {
           key: '/settings',
           onClick: () => navigate('/settings'),
         }),
+        getItem({
+          label: 'Контакты',
+          key: '/contacts',
+          onClick: () => navigate('/contacts'),
+        }),
       ],
     }),
     getItem(
