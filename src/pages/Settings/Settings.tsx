@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, Typography } from 'antd';
+import { Button, Divider, Form, Input, Statistic, Typography } from 'antd';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -187,27 +187,7 @@ export const Settings = () => {
 
         <Divider orientation="left">{'Информация о системе'}</Divider>
 
-        <Form
-          name="forecastsCount_form"
-          layout={'horizontal'}
-          onFinish={onEmailFinish}
-          initialValues={{
-            ['forecastsCount']: allForecasts.length,
-          }}
-        >
-          <div className={styles.content__item}>
-            <Form.Item
-              name={'forecastsCount'}
-              label={
-                <Text className={styles.content__label}>
-                  {'Количество прогнозов'}
-                </Text>
-              }
-            >
-              <Input size="middle" className={styles.content__input} disabled />
-            </Form.Item>
-          </div>
-        </Form>
+        <Statistic title="Количество прогнозов" value={allForecasts.length} />
       </div>
     </div>
   );

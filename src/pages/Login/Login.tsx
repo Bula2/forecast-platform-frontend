@@ -137,7 +137,7 @@ export const Login: React.FC = () => {
           {isForgotPassword ? (
             <Space direction="vertical" className={styles.alert}>
               <Alert
-                message="Для восстановления напишите нам на почту test@mail.com"
+                message="Для восстановления напишите нам на почту bulaev123da@gmail.com"
                 type="info"
                 showIcon
                 closable

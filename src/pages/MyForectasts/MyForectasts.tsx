@@ -5,11 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './MyForectasts.module.scss';
 import { ForecastContext } from '../../context';
 import { AllForecasts } from '../../types';
+import { useMediaQuery } from '../../hooks';
 
 const { Title, Text, Paragraph } = Typography;
 
 export const MyForectasts = () => {
   const navigate = useNavigate();
+  const media = useMediaQuery('(max-width: 1080px)');
   const { allForecasts, getAllForecasts } = useContext(ForecastContext);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ export const MyForectasts = () => {
           </div>
         )}
         {allForecasts.map((item, index) => (
-          <Col key={index} span={12}>
+          <Col key={index} span={media ? 24 : 12}>
             <Card
               className={styles.card}
               title={
@@ -48,13 +50,17 @@ export const MyForectasts = () => {
                     {item.subtitle ?? 'Нету'}
                   </Text>
                 </div>
-                <div className={styles.content__rigthBlock}>
-                  <Image
-                    width={60}
-                    preview={false}
-                    src="../../images/forecast-card.png"
-                  />
-                </div>
+                {!media ? (
+                  <div className={styles.content__rigthBlock}>
+                    <Image
+                      width={60}
+                      preview={false}
+                      src="../../images/forecast-card.png"
+                    />
+                  </div>
+                ) : (
+                  <></>
+                )}
               </div>
             </Card>
           </Col>

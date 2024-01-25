@@ -28,3 +28,23 @@
         margin-left: -27px;
     }
 }
+
+@media (max-width: 840px) {
+    .content {
+        margin-top: 30px;
+
+        &__item {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 5px;
+        }
+
+        &__editButton {
+            margin-top: -70px;
+            margin-left: 0;
+        }
+    }
+}
