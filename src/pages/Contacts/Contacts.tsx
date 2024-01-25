@@ -33,7 +33,11 @@ export const Contacts = () => {
           </Tag>
         </a>
 
-        <Tag className={styles.tag} icon={<EmailIcon />} color="#2eb6ff">
+        <Tag
+          className={styles.tag}
+          icon={<EmailIcon size={25} />}
+          color="#2eb6ff"
+        >
           <Text className={styles.tag__text}>
             {'Email: bulaev123da@gmail.com'}
           </Text>
