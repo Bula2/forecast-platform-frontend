@@ -12,8 +12,6 @@ import { GreyContent } from '../GreyContent/GreyContent';
 import { AuthContext } from '../../context/AuthContext';
 import { useMediaQuery } from '../../hooks';
 
-import styles from './MyLayout.module.scss';
-
 const { Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number];

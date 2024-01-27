@@ -3,6 +3,7 @@
     box-sizing: border-box;
     box-shadow: -2px -2px 5px rgb(95, 94, 94);
     border-radius: 8px;
+    overflow: scroll;
 
     &__forecast {
         color: #31e831;
@@ -18,6 +19,15 @@
     &__buttons {
         display: flex;
         flex-direction: row;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 840px) {
+    .header__buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         gap: 5px;
     }
 }

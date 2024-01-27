@@ -53,7 +53,11 @@ export const CreateForecast = () => {
       setIsError(true);
     }
   };
-  return (
+  return isLoading ? (
+    <div className={styles.loadingWrapper}>
+      <MyLoader color="#1677FF" size={56} />
+    </div>
+  ) : (
     <Form
       name="forecast"
       layout={'vertical'}
@@ -73,20 +77,15 @@ export const CreateForecast = () => {
         <Title level={3}>{'Создание прогноза'}</Title>
         <Text className={styles.linkInstructions}>
           {'Перед создание прогноза ознакомьтесь с '}
-          <Link to="/instructions">{'Инструкцией'}</Link>
+          <Link to="/instructions">{'Инструкциями'}</Link>
         </Text>
         <MyUploader />
         <CommonInfo />
         <ForecastInfo />
         <VisualizationInfo />
         <Form.Item className={styles.buttonWrapper}>
-          <Button
-            type="primary"
-            disabled={isLoading}
-            htmlType="submit"
-            size="large"
-          >
-            {isLoading ? <MyLoader /> : 'Создать прогноз'}
+          <Button type="primary" htmlType="submit" size="large">
+            {'Создать прогноз'}
           </Button>
         </Form.Item>
         {isError && (

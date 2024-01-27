@@ -5,6 +5,14 @@
     overflow: hidden;
 }
 
+.loadingWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .linkInstructions {
     display: block;
     margin: 5px 0;
