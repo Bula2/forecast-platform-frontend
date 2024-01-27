@@ -104,3 +104,22 @@ export const getCurrentForecastApi = async ({
       Authorization: 'Bearer ' + String(access),
     },
   });
+
+interface IDeleteCurrentForecastApi {
+  user_id: number;
+  result_id: number;
+  access: string;
+}
+
+export const deleteCurrentForecastApi = async ({
+  user_id,
+  result_id,
+  access,
+}: IDeleteCurrentForecastApi) =>
+  await instance.delete('forecast/delete/current/', {
+    params: { user_id, result_id },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + String(access),
+    },
+  });

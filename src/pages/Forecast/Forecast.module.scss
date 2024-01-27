@@ -20,6 +20,12 @@
         flex-direction: column;
     }
 
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
+
     &__button {
         width: 120px;
         margin-top: 32px;

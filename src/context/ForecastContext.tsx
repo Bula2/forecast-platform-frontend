@@ -8,6 +8,7 @@ import {
 import {
   createForecastApi,
   getAllForecastsApi,
+  deleteCurrentForecastApi,
   getCurrentForecastApi,
 } from '../api';
 import { AuthContext } from './AuthContext';
@@ -20,6 +21,7 @@ interface IForecastContext {
   ) => Promise<ResponceAnswerType>;
   getAllForecasts: () => Promise<ResponceAnswerType>;
   getCurrentForecast: (result_id: number) => Promise<ResponceAnswerType>;
+  deleteCurrentForecast: (result_id: number) => Promise<ResponceAnswerType>;
 }
 
 export const ForecastContext = createContext({} as IForecastContext);
@@ -76,12 +78,27 @@ export const ForecastProvider = ({ children }: any) => {
     }
   };
 
+  const deleteCurrentForecast = async (result_id: number) => {
+    try {
+      const responce = await deleteCurrentForecastApi({
+        user_id: user?.user_id!,
+        result_id,
+        access: localStorageUserValue.access,
+      });
+      return { type: 'success' };
+    } catch (e) {
+      logoutUser();
+      return { type: 'error' };
+    }
+  };
+
   const contextData = {
     allForecasts,
     currentForecast,
     createForecast,
     getAllForecasts,
     getCurrentForecast,
+    deleteCurrentForecast,
   };
 
   return (
