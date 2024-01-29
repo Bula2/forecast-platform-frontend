@@ -1,7 +1,7 @@
 import React, { RefObject } from 'react';
+import classnames from 'classnames';
 
 import styles from './DashletLayout.module.scss';
-import classnames from 'classnames';
 
 export interface IDashletLayout {
   children: React.ReactNode;
