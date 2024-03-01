@@ -18,20 +18,20 @@ export interface AllForecasts {
   title: string;
   subtitle: string;
   user: string;
-  excel_dataset: string;
-  arima_forecast: string;
+  dataset: string;
+  forecast: string;
   visualization: string;
 }
 
 export interface CurrentForecast {
   result_id: number;
-  excel_dataset: {
-    excel_dataset_id: number;
+  dataset: {
+    dataset_id: number;
     dimensions?: string[];
     measures: number[];
   };
-  arima_forecast: {
-    arima_forecast_id: number;
+  forecast: {
+    forecast_id: number;
     is_auto_params_forecast?: boolean;
     p_value: number;
     q_value: number;

@@ -54,9 +54,9 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
 
   const option = Object.keys(currentForecast).length
     ? getChartOptions({
-        dimensions: currentForecast.excel_dataset?.dimensions,
-        measures: currentForecast.excel_dataset.measures,
-        forecast_measures: currentForecast.arima_forecast.forecast_measures,
+        dimensions: currentForecast.dataset?.dimensions,
+        measures: currentForecast.dataset.measures,
+        forecast_measures: currentForecast.forecast.forecast_measures,
         color: currentForecast.visualization.color,
         unit: currentForecast.visualization?.unit,
         isLegendClicked,
