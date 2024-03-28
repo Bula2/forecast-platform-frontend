@@ -50,7 +50,7 @@ export const MyUploader: React.FC<IProps> = () => {
         >
           <Upload.Dragger
             name="file"
-            action="https://run.mocky.io/v3/ef6e7e94-9207-42a6-8dfc-08e2288058b8" //mockApi from https://designer.mocky.io/
+            action="https://658747ae0164db130fc9cbbf.mockapi.io/api/fileForProphet" //mockApi from https://designer.mocky.io/: https://run.mocky.io/v3/ef6e7e94-9207-42a6-8dfc-08e2288058b8 - prev link
             maxCount={1}
             showUploadList={{
               showRemoveIcon: true,
