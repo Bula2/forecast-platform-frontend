@@ -37,9 +37,9 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
   };
   const dataTableSource = Object.keys(currentForecast).length
     ? getTableSource({
-        dimensions: currentForecast.dataset?.dimensions,
-        measures: currentForecast.dataset.measures,
-        forecast_measures: currentForecast.forecast.forecast_measures,
+        dimensions: currentForecast?.dimensions,
+        measures: currentForecast.measures,
+        forecast_measures: currentForecast.forecast_measures,
       })
     : [];
 

@@ -44,10 +44,10 @@ export const CreateForecast = () => {
     setIsLoading(true);
     const responce = await createForecast(requestData);
     if (responce.type === 'success') {
-      const result_id = responce?.value.result_id;
+      const forecast_id = responce?.value.forecast_id;
       message.success(`Прогноз создан!`);
       setIsLoading(false);
-      navigate(`/forecast/${result_id}`);
+      navigate(`/forecast/${forecast_id}`);
     } else {
       setIsLoading(false);
       setIsError(true);

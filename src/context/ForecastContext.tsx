@@ -63,11 +63,10 @@ export const ForecastProvider = ({ children }: any) => {
     }
   };
 
-  const getCurrentForecast = async (result_id: number) => {
+  const getCurrentForecast = async (forecast_id: number) => {
     try {
       const responce = await getCurrentForecastApi({
-        user_id: user?.user_id!,
-        result_id,
+        forecast_id,
         access: localStorageUserValue.access,
       });
       setCurrentForecast(responce.data[0]);
@@ -78,11 +77,10 @@ export const ForecastProvider = ({ children }: any) => {
     }
   };
 
-  const deleteCurrentForecast = async (result_id: number) => {
+  const deleteCurrentForecast = async (forecast_id: number) => {
     try {
       const responce = await deleteCurrentForecastApi({
-        user_id: user?.user_id!,
-        result_id,
+        forecast_id,
         access: localStorageUserValue.access,
       });
       return { type: 'success' };

@@ -30,7 +30,7 @@ interface Props {
 export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
   const [isLegendClicked, setIsLegendClicked] = useState(false);
   const [radioButtonValue, setRadioButtonValue] = useState(
-    currentForecast.visualization.visualization_type
+    currentForecast.visualization_type
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,11 +54,11 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
 
   const option = Object.keys(currentForecast).length
     ? getChartOptions({
-        dimensions: currentForecast.dataset?.dimensions,
-        measures: currentForecast.dataset.measures,
-        forecast_measures: currentForecast.forecast.forecast_measures,
-        color: currentForecast.visualization.color,
-        unit: currentForecast.visualization?.unit,
+        dimensions: currentForecast?.dimensions,
+        measures: currentForecast.measures,
+        forecast_measures: currentForecast.forecast_measures,
+        color: currentForecast.color,
+        unit: currentForecast?.unit,
         isLegendClicked,
         type: radioButtonValue,
         isModalOpen,
