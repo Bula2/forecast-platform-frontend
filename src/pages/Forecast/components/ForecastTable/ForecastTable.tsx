@@ -141,7 +141,7 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
           dataSource={dataTableSource}
           columns={columns}
           bordered={true}
-          scroll={{ x: 1200, y: 700 }}
+          scroll={{ x: 1200, y: 900 }}
           pagination={false}
         />
       </Modal>
