@@ -90,7 +90,7 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
           strong
           className={item.type === 'forecast' ? styles.table__forecast : ''}
         >
-          {item.value}
+          {Number(item.value.toFixed(3))}
         </Text>
       ),
       sorter: (a, b) => a.dataMeasures.value - b.dataMeasures.value,

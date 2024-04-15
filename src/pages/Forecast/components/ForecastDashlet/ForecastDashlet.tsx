@@ -56,7 +56,9 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
     ? getChartOptions({
         dimensions: currentForecast?.dimensions,
         measures: currentForecast.measures,
-        forecast_measures: currentForecast.forecast_measures,
+        forecast_measures: currentForecast.forecast_measures.map((item) =>
+          Number(item.toFixed(3))
+        ),
         color: currentForecast.color,
         unit: currentForecast?.unit,
         isLegendClicked,

@@ -122,7 +122,7 @@ export const Login: React.FC = () => {
           {isError && (
             <Space direction="vertical" className={styles.alert}>
               <Alert
-                message="Неверный логин или пароль"
+                message="Неверный email или пароль"
                 type="error"
                 showIcon
                 closable
