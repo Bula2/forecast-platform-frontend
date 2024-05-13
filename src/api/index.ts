@@ -87,18 +87,16 @@ export const getAllForecastsApi = async ({
   });
 
 interface IGetCurrentForecastApi {
-  user_id: number;
   result_id: number;
   access: string;
 }
 
 export const getCurrentForecastApi = async ({
-  user_id,
   result_id,
   access,
 }: IGetCurrentForecastApi) =>
   await instance.get('forecast/get/current/', {
-    params: { user_id, result_id },
+    params: { result_id },
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + String(access),

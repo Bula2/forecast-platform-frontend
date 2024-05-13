@@ -66,7 +66,6 @@ export const ForecastProvider = ({ children }: any) => {
   const getCurrentForecast = async (result_id: number) => {
     try {
       const responce = await getCurrentForecastApi({
-        user_id: user?.user_id!,
         result_id,
         access: localStorageUserValue.access,
       });
