@@ -14,6 +14,7 @@ import styles from './ForecastTable.module.scss';
 import { downloadExcel, getTableSource } from '../../utils/helpers';
 import { DataTableType } from '../../utils/types';
 import {
+  InfoOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
   DownloadOutlined,
@@ -101,6 +102,15 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
     <div className={styles.table}>
       <div className={styles.header}>
         <div className={styles.header__buttons}>
+          <Tooltip
+            title={`p:${currentForecast.p_value}; d:${currentForecast.d_value}; q:${currentForecast.q_value}`}
+          >
+            <Button
+              shape="circle"
+              icon={<InfoOutlined />}
+              onClick={() => ({})}
+            />
+          </Tooltip>
           <Tooltip title="Скачать xlsx">
             <Button
               shape="circle"

@@ -21,7 +21,7 @@ export const Home = () => {
       <Divider orientation="left"></Divider>
       <Paragraph className={styles.paragraph}>
         {
-          'Вас приветствует Forecast Platform - универсальная система прогнозирования динамических показателей, представленных в виде временного ряда.'
+          'Вас приветствует Forecast Platform - универсальная система прогнозирования динамических показателей.'
         }
       </Paragraph>
       {!user && (

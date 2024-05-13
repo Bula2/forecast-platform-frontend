@@ -15,6 +15,7 @@ import {
   Tooltip,
 } from 'antd';
 import {
+  InfoOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
   DownloadOutlined,
@@ -103,6 +104,16 @@ export const ForecastDashlet: React.FC<Props> = ({ currentForecast }) => {
               {'Показать подписи'}
             </Checkbox>
           )}
+          <Tooltip
+            title={`p:${currentForecast.p_value}; d:${currentForecast.d_value}; q:${currentForecast.q_value}`}
+          >
+            <Button
+              shape="circle"
+              icon={<InfoOutlined />}
+              onClick={() => ({})}
+              loading={isLoading}
+            />
+          </Tooltip>
           <Tooltip title="Скачать png">
             <Button
               shape="circle"

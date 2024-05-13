@@ -67,7 +67,7 @@ export const Instructions = () => {
       </Paragraph>
       <Divider orientation="left">{'Параметры прогноза'}</Divider>
       <Paragraph className={styles.paragraph}>
-        В данном пункте неоюходимо выбрать Модель прогнозирования (на данный
+        В данном пункте необходимо выбрать Модель прогнозирования (на данный
         момент доступна только модель Arima), а также параметры для реализации
         прогноза.
       </Paragraph>
