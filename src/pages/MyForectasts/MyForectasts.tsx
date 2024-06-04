@@ -41,7 +41,7 @@ export const MyForectasts = () => {
                 </Text>
               }
               bordered={false}
-              onClick={() => handleClick(item.result_id)}
+              onClick={() => handleClick(item.forecast_id)}
             >
               <div className={styles.content}>
                 <div className={styles.content__leftBlock}>

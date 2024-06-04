@@ -87,18 +87,16 @@ export const getAllForecastsApi = async ({
   });
 
 interface IGetCurrentForecastApi {
-  user_id: number;
-  result_id: number;
+  forecast_id: number;
   access: string;
 }
 
 export const getCurrentForecastApi = async ({
-  user_id,
-  result_id,
+  forecast_id,
   access,
 }: IGetCurrentForecastApi) =>
   await instance.get('forecast/get/current/', {
-    params: { user_id, result_id },
+    params: { forecast_id },
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + String(access),
@@ -106,18 +104,16 @@ export const getCurrentForecastApi = async ({
   });
 
 interface IDeleteCurrentForecastApi {
-  user_id: number;
-  result_id: number;
+  forecast_id: number;
   access: string;
 }
 
 export const deleteCurrentForecastApi = async ({
-  user_id,
-  result_id,
+  forecast_id,
   access,
 }: IDeleteCurrentForecastApi) =>
   await instance.delete('forecast/delete/current/', {
-    params: { user_id, result_id },
+    params: { forecast_id },
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + String(access),

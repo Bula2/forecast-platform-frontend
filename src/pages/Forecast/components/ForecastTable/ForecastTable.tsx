@@ -14,6 +14,7 @@ import styles from './ForecastTable.module.scss';
 import { downloadExcel, getTableSource } from '../../utils/helpers';
 import { DataTableType } from '../../utils/types';
 import {
+  InfoOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
   DownloadOutlined,
@@ -37,9 +38,9 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
   };
   const dataTableSource = Object.keys(currentForecast).length
     ? getTableSource({
-        dimensions: currentForecast.dataset?.dimensions,
-        measures: currentForecast.dataset.measures,
-        forecast_measures: currentForecast.forecast.forecast_measures,
+        dimensions: currentForecast?.dimensions,
+        measures: currentForecast.measures,
+        forecast_measures: currentForecast.forecast_measures,
       })
     : [];
 
@@ -90,7 +91,7 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
           strong
           className={item.type === 'forecast' ? styles.table__forecast : ''}
         >
-          {item.value}
+          {Number(item.value.toFixed(3))}
         </Text>
       ),
       sorter: (a, b) => a.dataMeasures.value - b.dataMeasures.value,
@@ -101,6 +102,15 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
     <div className={styles.table}>
       <div className={styles.header}>
         <div className={styles.header__buttons}>
+          <Tooltip
+            title={`p:${currentForecast.p_value}; d:${currentForecast.d_value}; q:${currentForecast.q_value}`}
+          >
+            <Button
+              shape="circle"
+              icon={<InfoOutlined />}
+              onClick={() => ({})}
+            />
+          </Tooltip>
           <Tooltip title="Скачать xlsx">
             <Button
               shape="circle"
@@ -141,7 +151,7 @@ export const ForecastTable: React.FC<Props> = ({ currentForecast }) => {
           dataSource={dataTableSource}
           columns={columns}
           bordered={true}
-          scroll={{ x: 1200, y: 700 }}
+          scroll={{ x: 1200, y: 900 }}
           pagination={false}
         />
       </Modal>

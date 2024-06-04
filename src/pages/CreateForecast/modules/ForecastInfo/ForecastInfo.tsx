@@ -20,7 +20,7 @@ export const ForecastInfo = () => {
         {'Выберите параметры прогноза'}
       </Divider>
       <div className={styles.wrapper}>
-        <div className={styles.wrapper_item}>
+        {/* <div className={styles.wrapper_item}>
           <Form.Item
             label="Модель прогноза"
             name="prognosis_type"
@@ -45,14 +45,14 @@ export const ForecastInfo = () => {
             color="geekblue"
             placement="right"
           />
-        </div>
+        </div> */}
         <div className={styles.wrapper_item}>
           <Form.Item valuePropName="checked" name="is_auto_params_forecast">
             <Checkbox
               className={styles.checkbox}
               onChange={handleCheckboxClick}
             >
-              {'Автоматических подбор параметров прогноза'}
+              {'Автоматический подбор параметров прогноза'}
             </Checkbox>
           </Form.Item>
           <MyTooltip
@@ -123,7 +123,7 @@ export const ForecastInfo = () => {
         <div className={styles.wrapper_item}>
           <Form.Item
             name="n_count"
-            label="Количество прогнозируемых значений данных"
+            label="Количество прогнозируемых значений"
             rules={[
               {
                 required: true,
@@ -134,7 +134,7 @@ export const ForecastInfo = () => {
             <InputNumber min={'1'} max={'10'} />
           </Form.Item>
           <MyTooltip
-            title="Количество прогнозируемых значений данных"
+            title="Количество прогнозируемых значений"
             color="geekblue"
             placement="right"
           />
