@@ -1,3 +1,5 @@
+# Frontend часть приложения для прогнозирования динамических показателей.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
