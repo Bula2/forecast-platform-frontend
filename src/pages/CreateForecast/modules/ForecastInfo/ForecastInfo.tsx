@@ -20,7 +20,7 @@ export const ForecastInfo = () => {
         {'Выберите параметры прогноза'}
       </Divider>
       <div className={styles.wrapper}>
-        {/* <div className={styles.wrapper_item}>
+        <div className={styles.wrapper_item}>
           <Form.Item
             label="Модель прогноза"
             name="prognosis_type"
@@ -45,7 +45,7 @@ export const ForecastInfo = () => {
             color="geekblue"
             placement="right"
           />
-        </div> */}
+        </div>
         <div className={styles.wrapper_item}>
           <Form.Item valuePropName="checked" name="is_auto_params_forecast">
             <Checkbox
