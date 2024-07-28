@@ -2,6 +2,8 @@
 
 ### Версию с моковыми данными можно посмотреть здесь: [Forecast Platform](https://forecast-platform-buladev.netlify.app/)
 
+### [Backend](https://github.com/Bula2/forecast-platform-backend/tree/main)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
