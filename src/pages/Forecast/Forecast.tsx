@@ -7,23 +7,28 @@ import styles from './Forecast.module.scss';
 import { ForecastContext } from '../../context';
 import { MyLoader } from '../../components/MyLoader/MyLoader';
 import { ForecastDashlet, ForecastTable } from './components';
+import { forecastsList } from '../../api/mockApi';
+import { CurrentForecast } from '../../types';
 
 const { Title, Text, Paragraph } = Typography;
 
 export const Forecast = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const { currentForecast, getCurrentForecast, deleteCurrentForecast } =
-    useContext(ForecastContext);
+  const currentForecast = forecastsList.find(
+    (item) => item.forecast_id === Number(params.id)
+  )! as CurrentForecast;
 
   const onForecatsDelete = () => {
-    deleteCurrentForecast(Number(params.id));
+    // deleteCurrentForecast(Number(params.id));
     navigate('/forecasts');
   };
 
   useEffect(() => {
-    getCurrentForecast(Number(params.id));
+    // getCurrentForecast(Number(params.id));
   }, []);
+
+  console.log('currentForecast: ', currentForecast);
 
   const handleClickButtonBack = () => {
     navigate('/forecasts');

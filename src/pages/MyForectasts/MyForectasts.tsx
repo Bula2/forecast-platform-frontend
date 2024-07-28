@@ -6,17 +6,18 @@ import styles from './MyForectasts.module.scss';
 import { ForecastContext } from '../../context';
 import { AllForecasts } from '../../types';
 import { useMediaQuery } from '../../hooks';
+import { allForecasts } from '../../api/mockApi';
 
 const { Title, Text, Paragraph } = Typography;
 
 export const MyForectasts = () => {
   const navigate = useNavigate();
   const media = useMediaQuery('(max-width: 1080px)');
-  const { allForecasts, getAllForecasts } = useContext(ForecastContext);
+  // const { allForecasts, getAllForecasts } = useContext(ForecastContext);
 
-  useEffect(() => {
-    getAllForecasts();
-  }, []);
+  // useEffect(() => {
+  //   getAllForecasts();
+  // }, []);
 
   const handleClick = (id: string) => {
     navigate(`/forecast/${id}`);
@@ -41,7 +42,7 @@ export const MyForectasts = () => {
                 </Text>
               }
               bordered={false}
-              onClick={() => handleClick(item.forecast_id)}
+              onClick={() => handleClick(String(item.forecast_id))}
             >
               <div className={styles.content}>
                 <div className={styles.content__leftBlock}>

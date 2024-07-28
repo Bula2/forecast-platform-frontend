@@ -1,6 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Alert, Button, Form, Input, Layout, Space, Typography } from 'antd';
+import {
+  Alert,
+  Button,
+  Form,
+  Input,
+  Layout,
+  Space,
+  Typography,
+  message,
+} from 'antd';
 import { AuthContext } from '../../context/AuthContext';
 import { MyLoader } from '../../components/MyLoader/MyLoader';
 import { Link } from 'react-router-dom';
@@ -19,17 +28,20 @@ type FieldType = {
 
 export const Registration = () => {
   const [form] = Form.useForm();
-  const { registerUser } = useContext(AuthContext);
+  // const { registerUser } = useContext(AuthContext);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const onFinish = async (values: RegisterUser) => {
-    setIsError(false);
-    setIsLoading(true);
-    const answer = await registerUser(values);
-    if (answer.type === 'error') {
-      setIsLoading(false);
-      setIsError(true);
-    }
+    message.success(
+      `К сожалению в Моковой версии нельзя создать пользователя!`
+    );
+    // setIsError(false);
+    // setIsLoading(true);
+    // const answer = await registerUser(values);
+    // if (answer.type === 'error') {
+    //   setIsLoading(false);
+    //   setIsError(true);
+    // }
   };
 
   return (

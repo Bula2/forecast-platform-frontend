@@ -4,12 +4,13 @@ import { AuthContext } from '../../context/AuthContext';
 
 import styles from './Settings.module.scss';
 import { ForecastContext } from '../../context';
+import { allForecasts } from '../../api/mockApi';
 
 const { Title, Text, Paragraph } = Typography;
 
 export const Settings = () => {
   const { user } = useContext(AuthContext);
-  const { allForecasts } = useContext(ForecastContext);
+  // const { allForecasts } = useContext(ForecastContext);
   const [isFirstNameChange, setIsFirstNameChange] = useState(false);
   const [isEmailChange, setIsEmailChange] = useState(false);
   const [isPasswordChange, setIsPasswordChange] = useState(false);

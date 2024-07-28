@@ -33,16 +33,17 @@ export const Login: React.FC = () => {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const onFinish = async (values: AuthUser) => {
-    setIsError(false);
-    setIsLoading(true);
-    const answer = await loginUser({
-      email: values.email,
-      password: values.password,
-    });
-    if (answer.type === 'error') {
-      setIsLoading(false);
-      setIsError(true);
-    }
+    loginUser(values);
+    // setIsError(false);
+    // setIsLoading(true);
+    // const answer = await loginUser({
+    //   email: values.email,
+    //   password: values.password,
+    // });
+    // if (answer.type === 'error') {
+    //   setIsLoading(false);
+    //   setIsError(true);
+    // }
   };
 
   return (

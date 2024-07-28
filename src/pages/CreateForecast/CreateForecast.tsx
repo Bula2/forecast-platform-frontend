@@ -18,7 +18,7 @@ const { Title, Text } = Typography;
 
 export const CreateForecast = () => {
   const { user } = useContext(AuthContext);
-  const { createForecast } = useContext(ForecastContext);
+  // const { createForecast } = useContext(ForecastContext);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
@@ -41,17 +41,19 @@ export const CreateForecast = () => {
       unit: values.unit,
     };
     setIsError(false);
-    setIsLoading(true);
-    const responce = await createForecast(requestData);
-    if (responce.type === 'success') {
-      const forecast_id = responce?.value.forecast_id;
-      message.success(`Прогноз создан!`);
-      setIsLoading(false);
-      navigate(`/forecast/${forecast_id}`);
-    } else {
-      setIsLoading(false);
-      setIsError(true);
-    }
+    // setIsLoading(true);
+    message.success(`К сожалению в Моковой версии нельзя создать прогноз!`);
+    navigate(`/forecasts`);
+    // const responce = await createForecast(requestData);
+    // if (responce.type === 'success') {
+    //   const forecast_id = responce?.value.forecast_id;
+    //   message.success(`Прогноз создан!`);
+    //   setIsLoading(false);
+    //   navigate(`/forecast/${forecast_id}`);
+    // } else {
+    //   setIsLoading(false);
+    //   setIsError(true);
+    // }
   };
   return isLoading ? (
     <div className={styles.loadingWrapper}>
