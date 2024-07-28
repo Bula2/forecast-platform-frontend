@@ -1,5 +1,7 @@
 # Frontend часть приложения для прогнозирования динамических показателей.
 
+### Версию с моковыми даннвми можно посмотреть здесь: (Forecast Platform)[https://forecast-platform-buladev.netlify.app/]
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
